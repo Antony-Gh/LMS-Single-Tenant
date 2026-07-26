@@ -4,11 +4,31 @@ import 'package:esoi/common/enums/error_enum.dart';
 import 'package:esoi/common/utils/error_handler.dart';
 import 'package:esoi/app/models/register_config_model.dart';
 import 'package:dio/dio.dart';
+import 'package:esoi/common/common.dart';
+import 'package:esoi/app/pages/authentication_page/login_page.dart';
 
 class AuthenticationService {
   final AuthApi _authApi;
 
   AuthenticationService(this._authApi);
+
+  Future<void> handleUnauthorized() async {
+    await AppData.saveAccessToken('');
+    nextRoute(LoginPage.pageName, isClearBackRoutes: true);
+  }
+
+  Future<bool> logout() async {
+    try {
+      await _authApi.logout();
+      // Clear local storage and navigate to login regardless of server response
+      await handleUnauthorized();
+      return true;
+    } catch (e) {
+      // Even if API fails, clear local state
+      await handleUnauthorized();
+      return false;
+    }
+  }
 
   Future<bool> google(String email, String token, String name) async {
     try {

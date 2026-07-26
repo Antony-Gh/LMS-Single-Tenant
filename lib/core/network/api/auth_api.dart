@@ -24,6 +24,10 @@ class AuthApi {
   Future<Response> forgetPassword(Map<String, dynamic> data) {
     return _apiClient.dio.post('forget-password', data: data);
   }
+
+  Future<Response> logout() {
+    return _apiClient.dio.post('logout');
+  }
   
   Future<Response> googleCallback(Map<String, dynamic> data) {
     return _apiClient.dio.post('google/callback', data: data);

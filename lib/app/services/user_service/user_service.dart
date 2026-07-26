@@ -498,26 +498,6 @@ class UserService {
     }
   }
 
-  static Future<bool> logout() async {
-    try {
-      String url = '${Constants.baseUrl}logout';
-
-      Response res =
-          await httpPostWithToken(url, {}, isRedirectingStatusCode: false);
-
-      var jsonResponse = jsonDecode(res.body);
-
-      if (jsonResponse['success']) {
-        return true;
-      } else {
-        // ErrorHandler().showError(ErrorEnum.error, jsonResponse);
-        return false;
-      }
-    } catch (e) {
-      return false;
-    }
-  }
-
   static Future<bool> updateImage(
       File? profile, File? indentity, File? certificate) async {
     try {

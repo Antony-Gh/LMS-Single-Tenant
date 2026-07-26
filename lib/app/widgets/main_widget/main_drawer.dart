@@ -10,6 +10,9 @@ import 'package:esoi/app/providers/page_provider.dart';
 import 'package:esoi/app/providers/theme_provider.dart';
 import 'package:esoi/app/providers/user_provider.dart';
 import 'package:esoi/app/services/user_service/user_service.dart';
+import 'package:esoi/locator.dart';
+import 'package:esoi/app/services/authentication_service/authentication_service.dart';
+import 'package:esoi/app/widgets/authentication_widget/auth_widget.dart';
 import 'package:esoi/app/widgets/main_widget/main_widget.dart';
 import 'package:esoi/common/common.dart';
 import 'package:esoi/common/components.dart';
@@ -309,7 +312,7 @@ class _MainDrawerState extends State<MainDrawer> {
                                     drawerController.hideDrawer();
 
                                     // logout
-                                    UserService.logout();
+                                    locator<AuthenticationService>().logout();
                                     await Future.delayed(
                                         const Duration(milliseconds: 200));
 

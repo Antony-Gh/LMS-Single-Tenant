@@ -2,8 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:esoi/common/data/app_data.dart';
 import 'package:esoi/config/app_config.dart';
 import 'package:esoi/locator.dart';
-import 'package:esoi/app/pages/authentication_page/login_page.dart';
-import 'package:esoi/common/common.dart';
+import 'package:esoi/app/services/authentication_service/authentication_service.dart';
 
 class AuthInterceptor extends Interceptor {
   @override
@@ -28,9 +27,8 @@ class AuthInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     if (err.response?.statusCode == 401) {
-      // Clear token and navigate to login
-      AppData.saveAccessToken('');
-      nextRoute(LoginPage.pageName, isClearBackRoutes: true);
+      // Notify the authentication layer to handle logout and navigation
+      locator<AuthenticationService>().handleUnauthorized();
     }
     return super.onError(err, handler);
   }
