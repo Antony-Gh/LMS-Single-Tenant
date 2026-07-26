@@ -12,6 +12,7 @@ import 'package:esoi/app/pages/main_page/home_page/single_course_page/single_con
 import 'package:esoi/app/pages/main_page/main_page.dart';
 import 'package:esoi/app/providers/page_provider.dart';
 import 'package:esoi/app/services/authentication_service/authentication_service.dart';
+import 'package:esoi/locator.dart';
 import 'package:esoi/app/widgets/authentication_widget/auth_widget.dart';
 import 'package:esoi/app/widgets/authentication_widget/register_widget/register_widget.dart';
 import 'package:esoi/app/widgets/main_widget/main_widget.dart';
@@ -169,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                             });
 
                             try {
-                              bool res = await AuthenticationService.google(
+                              bool res = await locator<AuthenticationService>().google(
                                   gUser.email,
                                   gAuth.accessToken ?? '',
                                   gUser.displayName ?? '');
@@ -211,7 +212,7 @@ class _LoginPageState extends State<LoginPage> {
                       //           String name = value['name'] ?? '';
                       //
                       //           try{
-                      //             bool res = await AuthenticationService.facebook(email, accessToken.tokenString, name);
+                      //             bool res = await locator<AuthenticationService>().facebook(email, accessToken.tokenString, name);
                       //
                       //             if(res){
                       //               try{
@@ -343,7 +344,7 @@ class _LoginPageState extends State<LoginPage> {
                               isSendingData = true;
                             });
 
-                            bool res = await AuthenticationService.login(
+                            bool res = await locator<AuthenticationService>().login(
                                 '${isPhoneNumber ? countryCode.dialCode!.replaceAll('+', '') : ''}${mailController.text.trim()}',
                                 passwordController.text.trim());
 

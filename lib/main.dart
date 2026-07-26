@@ -79,6 +79,8 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'config/app_config.dart';
+import 'config/tenants/eldegiwy_config.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -100,7 +102,8 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(CourseModelDBAdapter());
 
-  await locatorSetup();
+  AppConfig appConfig = EldegiwyConfig();
+  await locatorSetup(appConfig);
   await locator<AppLanguage>().getLanguage();
 
   await initializeDateFormatting();

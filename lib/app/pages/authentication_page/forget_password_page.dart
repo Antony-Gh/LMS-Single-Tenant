@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:esoi/app/services/authentication_service/authentication_service.dart';
 import 'package:esoi/app/widgets/authentication_widget/auth_widget.dart';
 import 'package:esoi/app/widgets/authentication_widget/country_code_widget/code_country.dart';
+import 'package:esoi/locator.dart';
 import 'package:esoi/app/widgets/authentication_widget/register_widget/register_widget.dart';
 import 'package:esoi/common/components.dart';
 import 'package:esoi/common/common.dart';
@@ -211,7 +212,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                             isSendingData = true;
                           });
 
-                          bool res = await AuthenticationService.forgetPassword(
+                          bool res = await locator<AuthenticationService>().forgetPassword(
                             isPhoneNumber ? countryCode.dialCode : null,
                             mailController.text.trim(),
                           );

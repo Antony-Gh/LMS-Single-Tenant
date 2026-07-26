@@ -237,7 +237,7 @@ class _VerifyCodePageState extends State<VerifyCodePage> {
                               isSendingData = true;
                             });
 
-                            bool res = await AuthenticationService.verifyCode(
+                            bool res = await locator<AuthenticationService>().verifyCode(
                                 data['user_id'], code);
 
                             if (res) {
@@ -288,7 +288,7 @@ class _VerifyCodePageState extends State<VerifyCodePage> {
                               });
 
                               Map? res =
-                                  await AuthenticationService.registerWithEmail(
+                                  await locator<AuthenticationService>().registerWithEmail(
                                       // email
                                       PublicData
                                           .apiConfigData?['register_method'],
@@ -316,7 +316,7 @@ class _VerifyCodePageState extends State<VerifyCodePage> {
                               });
 
                               Map? res =
-                                  await AuthenticationService.registerWithPhone(
+                                  await locator<AuthenticationService>().registerWithPhone(
                                       // mobile
                                       PublicData
                                           .apiConfigData?['register_method'],

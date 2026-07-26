@@ -87,6 +87,7 @@ dependencies:
   dotted_border: ^3.1.0
   qr_flutter: ^4.1.0
   screen_protector: ^1.5.1
+  flutter_secure_storage: ^10.3.1
 
 dependency_overrides:
   # flutter_widget_from_html_core: ^0.14.9

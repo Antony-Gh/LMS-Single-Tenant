@@ -1,13 +1,23 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:esoi/common/data/api_public_data.dart';
+import 'package:esoi/core/storage/secure_storage_helper.dart';
+import 'package:esoi/locator.dart';
 
 class AppData {
   static Future saveAccessToken(String data) async {
+    // Save to secure storage
+    await locator<SecureStorageHelper>().saveToken(data);
+    // Fallback save to shared preferences temporarily
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return await prefs.setString('access_token', data);
   }
 
   static Future<String> getAccessToken() async {
+    String? token = await locator<SecureStorageHelper>().getToken();
+    if (token != null && token.isNotEmpty) {
+      return token;
+    }
+    // Fallback to shared preferences if not in secure storage
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String data = prefs.getString('access_token') ?? '';
     return data;

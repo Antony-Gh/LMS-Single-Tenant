@@ -1,80 +1,74 @@
-import 'dart:convert';
-
-import 'package:esoi/app/models/register_config_model.dart';
+import 'package:esoi/core/network/api/auth_api.dart';
 import 'package:esoi/common/data/app_data.dart';
 import 'package:esoi/common/enums/error_enum.dart';
-import 'package:esoi/common/utils/constants.dart';
 import 'package:esoi/common/utils/error_handler.dart';
-import 'package:esoi/common/utils/http_handler.dart';
-import 'package:http/http.dart';
+import 'package:esoi/app/models/register_config_model.dart';
+import 'package:dio/dio.dart';
 
 class AuthenticationService {
-  static Future google(String email, String token, String name) async {
-    try {
-      String url = '${Constants.baseUrl}google/callback';
+  final AuthApi _authApi;
 
-      Map body = {
+  AuthenticationService(this._authApi);
+
+  Future<bool> google(String email, String token, String name) async {
+    try {
+      final data = {
         'email': email,
         'name': name,
         'id': token,
       };
 
-      Response res = await httpPost(url, body);
+      Response res = await _authApi.googleCallback(data);
 
       if (res.statusCode == 200) {
-        await AppData.saveAccessToken(jsonDecode(res.body)['data']['token']);
-
+        await AppData.saveAccessToken(res.data['data']['token']);
         return true;
-      } else {
-        return false;
       }
+      return false;
     } catch (e) {
       return false;
     }
   }
 
-  static Future facebook(String email, String token, String name) async {
+  Future<bool> facebook(String email, String token, String name) async {
     try {
-      String url = '${Constants.baseUrl}facebook/callback';
+      final data = {'id': token, 'name': name, 'email': email};
+      Response res = await _authApi.facebookCallback(data);
 
-      Map body = {'id': token, 'name': name, 'email': email};
-      Response res = await httpPost(url, body);
-
-      var jsonResponse = jsonDecode(res.body);
-      if (jsonResponse['success']) {
-        await AppData.saveAccessToken(jsonDecode(res.body)['data']['token']);
+      if (res.data['success'] == true) {
+        await AppData.saveAccessToken(res.data['data']['token']);
         return true;
-      } else {
-        return false;
       }
+      return false;
     } catch (e) {
       return false;
     }
   }
 
-  static Future login(String username, String password) async {
+  Future<bool> login(String username, String password) async {
     try {
-      String url = '${Constants.baseUrl}login';
+      final data = {'username': username, 'password': password};
+      Response res = await _authApi.login(data);
 
-      Map body = {'username': username, 'password': password};
-      Response res = await httpPost(url, body);
-
-      var jsonResponse = jsonDecode(res.body);
-      if (jsonResponse['success']) {
-        await AppData.saveAccessToken(jsonResponse['data']['token']);
+      if (res.data['success'] == true) {
+        await AppData.saveAccessToken(res.data['data']['token']);
         await AppData.saveName('');
         return true;
       } else {
-        ErrorHandler()
-            .showError(ErrorEnum.error, jsonResponse, readMessage: true);
+        ErrorHandler().showError(ErrorEnum.error, res.data, readMessage: true);
         return false;
       }
+    } on DioException catch (e) {
+      if (e.response?.data != null) {
+        ErrorHandler().showError(ErrorEnum.error, e.response!.data, readMessage: true);
+      }
+      return false;
     } catch (e) {
       return false;
     }
   }
 
-  static Future<Map?> registerWithEmail(
+  Future<Map?> registerWithEmail(
       String registerMethod,
       String email,
       String password,
@@ -83,9 +77,7 @@ class AuthenticationService {
       String? accountType,
       List<Fields>? fields) async {
     try {
-      String url = '${Constants.baseUrl}register/step/1';
-
-      Map body = {
+      Map<String, dynamic> data = {
         "register_method": registerMethod,
         "country_code": null,
         'email': email,
@@ -98,39 +90,38 @@ class AuthenticationService {
         Map bodyFields = {};
         for (var i = 0; i < fields.length; i++) {
           if (fields[i].type != 'upload') {
-            bodyFields.addEntries({
-              fields[i].id: (fields[i].type == 'toggle')
-                  ? fields[i].userSelectedData == null
-                      ? 0
-                      : 1
-                  : fields[i].userSelectedData
-            }.entries);
+            bodyFields[fields[i].id!] = (fields[i].type == 'toggle')
+                ? fields[i].userSelectedData == null ? 0 : 1
+                : fields[i].userSelectedData;
           }
         }
-
-        body.addEntries({'fields': bodyFields.toString()}.entries);
+        data['fields'] = bodyFields.toString();
       }
-      Response res = await httpPost(url, body);
+      
+      Response res = await _authApi.registerStep1(data);
 
-      var jsonResponse = jsonDecode(res.body);
-
-      if (jsonResponse['success'] ||
-          jsonResponse['status'] == 'go_step_2' ||
-          jsonResponse['status'] == 'go_step_3') {
+      if (res.data['success'] == true ||
+          res.data['status'] == 'go_step_2' ||
+          res.data['status'] == 'go_step_3') {
         return {
-          'user_id': jsonResponse['data']['user_id'],
-          'step': jsonResponse['status']
+          'user_id': res.data['data']['user_id'],
+          'step': res.data['status']
         };
       } else {
-        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        ErrorHandler().showError(ErrorEnum.error, res.data);
         return null;
       }
+    } on DioException catch (e) {
+      if (e.response?.data != null) {
+        ErrorHandler().showError(ErrorEnum.error, e.response!.data);
+      }
+      return null;
     } catch (e) {
       return null;
     }
   }
 
-  static Future<Map?> registerWithPhone(
+  Future<Map?> registerWithPhone(
       String registerMethod,
       String countryCode,
       String mobile,
@@ -140,9 +131,7 @@ class AuthenticationService {
       String? accountType,
       List<Fields>? fields) async {
     try {
-      String url = '${Constants.baseUrl}register/step/1';
-
-      Map body = {
+      Map<String, dynamic> data = {
         "register_method": registerMethod,
         "country_code": countryCode,
         'mobile': mobile,
@@ -155,115 +144,116 @@ class AuthenticationService {
         Map bodyFields = {};
         for (var i = 0; i < fields.length; i++) {
           if (fields[i].type != 'upload') {
-            bodyFields.addEntries({
-              fields[i].id: (fields[i].type == 'toggle')
-                  ? fields[i].userSelectedData == null
-                      ? 0
-                      : 1
-                  : fields[i].userSelectedData
-            }.entries);
+            bodyFields[fields[i].id!] = (fields[i].type == 'toggle')
+                ? fields[i].userSelectedData == null ? 0 : 1
+                : fields[i].userSelectedData;
           }
         }
-
-        body.addEntries({'fields': bodyFields.toString()}.entries);
+        data['fields'] = bodyFields.toString();
       }
 
-      Response res = await httpPost(url, body);
+      Response res = await _authApi.registerStep1(data);
 
-      var jsonResponse = jsonDecode(res.body);
-      if (jsonResponse['success'] ||
-          jsonResponse['status'] == 'go_step_2' ||
-          jsonResponse['status'] == 'go_step_3') {
-        // || stored
-
+      if (res.data['success'] == true ||
+          res.data['status'] == 'go_step_2' ||
+          res.data['status'] == 'go_step_3') {
         return {
-          'user_id': jsonResponse['data']['user_id'],
-          'step': jsonResponse['status']
+          'user_id': res.data['data']['user_id'],
+          'step': res.data['status']
         };
       } else {
-        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        ErrorHandler().showError(ErrorEnum.error, res.data);
         return null;
       }
+    } on DioException catch (e) {
+      if (e.response?.data != null) {
+        ErrorHandler().showError(ErrorEnum.error, e.response!.data);
+      }
+      return null;
     } catch (e) {
       return null;
     }
   }
 
-  static Future<bool> forgetPassword(String? countryCode, String data) async {
+  Future<bool> forgetPassword(String? countryCode, String mobileOrEmail) async {
     try {
-      String url = '${Constants.baseUrl}forget-password';
-
-      Map body = {
+      Map<String, dynamic> data = {
         'type': countryCode == null ? 'email' : 'mobile',
-        if (countryCode == null) ...{
-          "email": data
-        } else ...{
+        if (countryCode == null)
+          "email": mobileOrEmail
+        else ...{
           "country_code": countryCode,
-          "mobile": data,
+          "mobile": mobileOrEmail,
         }
       };
 
-      Response res = await httpPost(url, body);
+      Response res = await _authApi.forgetPassword(data);
 
-      var jsonResponse = jsonDecode(res.body);
-      if (jsonResponse['success']) {
-        ErrorHandler()
-            .showError(ErrorEnum.success, jsonResponse, readMessage: true);
+      if (res.data['success'] == true) {
+        ErrorHandler().showError(ErrorEnum.success, res.data, readMessage: true);
         return true;
       } else {
-        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        ErrorHandler().showError(ErrorEnum.error, res.data);
         return false;
       }
+    } on DioException catch (e) {
+      if (e.response?.data != null) {
+        ErrorHandler().showError(ErrorEnum.error, e.response!.data);
+      }
+      return false;
     } catch (e) {
       return false;
     }
   }
 
-  static Future<bool> verifyCode(int userId, String code) async {
+  Future<bool> verifyCode(int userId, String code) async {
     try {
-      String url = '${Constants.baseUrl}register/step/2';
-
-      Map body = {
+      final data = {
         "user_id": userId.toString(),
         "code": code,
       };
 
-      Response res = await httpPost(url, body);
+      Response res = await _authApi.verifyCode(data);
 
-      var jsonResponse = jsonDecode(res.body);
-      if (jsonResponse['success']) {
+      if (res.data['success'] == true) {
         return true;
       } else {
-        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        ErrorHandler().showError(ErrorEnum.error, res.data);
         return false;
       }
+    } on DioException catch (e) {
+      if (e.response?.data != null) {
+        ErrorHandler().showError(ErrorEnum.error, e.response!.data);
+      }
+      return false;
     } catch (e) {
       return false;
     }
   }
 
-  static Future<bool> registerStep3(
-      int userId, String name, String referralCode) async {
+  Future<bool> registerStep3(int userId, String name, String referralCode) async {
     try {
-      String url = '${Constants.baseUrl}register/step/3';
-
-      Map body = {
+      final data = {
         "user_id": userId.toString(),
         "full_name": name,
         "referral_code": referralCode
       };
 
-      Response res = await httpPost(url, body);
+      Response res = await _authApi.registerStep3(data);
 
-      var jsonResponse = jsonDecode(res.body);
-      if (jsonResponse['success']) {
-        await AppData.saveAccessToken(jsonResponse['data']['token']);
+      if (res.data['success'] == true) {
+        await AppData.saveAccessToken(res.data['data']['token']);
         await AppData.saveName(name);
         return true;
       } else {
-        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        ErrorHandler().showError(ErrorEnum.error, res.data);
         return false;
       }
+    } on DioException catch (e) {
+      if (e.response?.data != null) {
+        ErrorHandler().showError(ErrorEnum.error, e.response!.data);
+      }
+      return false;
     } catch (e) {
       return false;
     }

@@ -9,6 +9,7 @@ import 'package:esoi/app/pages/main_page/main_page.dart';
 import 'package:esoi/app/services/authentication_service/authentication_service.dart';
 import 'package:esoi/app/services/guest_service/guest_service.dart';
 import 'package:esoi/app/services/academic_service/academic_service.dart';
+import 'package:esoi/locator.dart';
 import 'package:esoi/app/widgets/authentication_widget/auth_widget.dart';
 import 'package:esoi/app/widgets/authentication_widget/country_code_widget/code_country.dart';
 import 'package:esoi/app/widgets/authentication_widget/register_widget/register_widget.dart';
@@ -454,7 +455,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                               // if(registerConfig?.registerMethod == 'email'){
                               if (otherRegisterMethod == 'email') {
-                                Map? res = await AuthenticationService
+                                Map? res = await locator<AuthenticationService>()
                                     .registerWithEmail(
                                         // email
                                         // registerConfig?.registerMethod ?? '',
@@ -499,7 +500,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   }
                                 }
                               } else {
-                                Map? res = await AuthenticationService
+                                Map? res = await locator<AuthenticationService>()
                                     .registerWithPhone(
                                         // mobile
                                         // registerConfig?.registerMethod ?? '',

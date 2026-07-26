@@ -1,5 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:esoi/config/app_config.dart';
+import 'package:esoi/core/storage/secure_storage_helper.dart';
+import 'package:esoi/core/network/api_client.dart';
+import 'package:esoi/core/network/api/auth_api.dart';
+import 'package:esoi/app/services/authentication_service/authentication_service.dart';
 import 'package:esoi/app/providers/app_language_provider.dart';
 import 'package:esoi/app/providers/drawer_provider.dart';
 import 'package:esoi/app/providers/home_provider.dart';
@@ -13,8 +18,13 @@ import 'common/utils/currency_utils.dart';
 
 GetIt locator = GetIt.instance;
 
-locatorSetup() async {
+locatorSetup(AppConfig config) async {
+  locator.registerSingleton<AppConfig>(config);
+  locator.registerSingleton<SecureStorageHelper>(SecureStorageHelper());
+  locator.registerSingleton<ApiClient>(ApiClient());
   locator.registerSingleton<Dio>(Dio());
+  locator.registerSingleton<AuthApi>(AuthApi());
+  locator.registerSingleton<AuthenticationService>(AuthenticationService(locator<AuthApi>()));
 
   locator.registerSingleton<AppLanguage>(AppLanguage());
   locator.registerSingleton<CurrencyUtils>(CurrencyUtils());
