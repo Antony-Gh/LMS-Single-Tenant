@@ -171,7 +171,7 @@ class _SingleCoursePageState extends State<SingleCoursePage>
 
     log('is Bundle: $isBundleCourse - id: $id');
 
-    courseData = await CourseService.getSingleCourseData(id, isBundleCourse,
+    courseData = await locator<CourseService>().getSingleCourseData(id, isBundleCourse,
         isPrivate: isPrivate);
 
     if (courseData != null && isBundleCourse) {
@@ -192,13 +192,13 @@ class _SingleCoursePageState extends State<SingleCoursePage>
   }
 
   getContent() async {
-    contentData = await CourseService.getContent(courseData!.id!);
+    contentData = await locator<CourseService>().getContent(courseData!.id!);
 
     setState(() {});
   }
 
   getBundleCourses() async {
-    bundleCourses = await CourseService.bundleCourses(courseData!.id!);
+    bundleCourses = await locator<CourseService>().bundleCourses(courseData!.id!);
 
     setState(() {});
   }

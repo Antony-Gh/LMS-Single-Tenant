@@ -1313,7 +1313,7 @@ class SingleCourseWidget {
             GestureDetector(
               onTap: () {
                 courseData.isFavorite = !(courseData.isFavorite ?? false);
-                CourseService.addFavorite(courseData.id!, isBundle);
+                locator<CourseService>().addFavorite(courseData.id!, isBundle);
 
                 backRoute();
               },
@@ -1438,7 +1438,7 @@ class SingleCourseWidget {
               button(
                   onTap: () {
                     if (messageController.text.trim().isNotEmpty) {
-                      CourseService.reportCourse(reasonSelected, courseId,
+                      locator<CourseService>().reportCourse(reasonSelected, courseId,
                           messageController.text.trim());
 
                       backRoute();

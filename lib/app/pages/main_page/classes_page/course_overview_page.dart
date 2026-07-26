@@ -1,3 +1,4 @@
+import 'package:esoi/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:esoi/app/models/single_course_model.dart';
 import 'package:esoi/app/services/guest_service/course_service.dart';
@@ -50,7 +51,7 @@ class _CourseOverviewPageState extends State<CourseOverviewPage> {
       isLoading = true;
     });
 
-    course = await CourseService.getOverviewCourseData(id, isBundle,
+    course = await locator<CourseService>().getOverviewCourseData(id, isBundle,
         isPrivate: isPrivate);
 
     setState(() {

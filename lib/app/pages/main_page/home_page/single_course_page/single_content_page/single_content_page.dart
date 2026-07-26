@@ -1,3 +1,4 @@
+import 'package:esoi/locator.dart';
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -117,7 +118,7 @@ class _SingleContentPageState extends State<SingleContentPage> {
 
     print(content?.link ?? '');
     singleContentData =
-        await CourseService.getSingleContent(content?.link ?? '');
+        await locator<CourseService>().getSingleContent(content?.link ?? '');
 
     await getNote();
   }
@@ -128,7 +129,7 @@ class _SingleContentPageState extends State<SingleContentPage> {
     }
 
     previousContentData =
-        await CourseService.getSingleContent(previousContentLink!);
+        await locator<CourseService>().getSingleContent(previousContentLink!);
   }
 
   @override
@@ -334,7 +335,7 @@ class _SingleContentPageState extends State<SingleContentPage> {
                                     content?.authHasRead = value;
                                   });
 
-                                  CourseService.toggle(
+                                  locator<CourseService>().toggle(
                                       courseId!,
                                       content!.type == 'text_lesson'
                                           ? 'text_lesson_id'

@@ -72,7 +72,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
       isLoading = true;
     });
 
-    data += await CourseService.getAll(
+    data += await locator<CourseService>().getAll(
         offset: data.length,
         cat: category?.id?.toString(),
         filterOption: locator<FilterCourseProvider>().filterSelected,
@@ -101,7 +101,7 @@ class _FilterCategoryPageState extends State<FilterCategoryPage> {
 
   getFeatured() {
     if (category != null) {
-      CourseService.featuredCourse(cat: category!.id!.toString()).then((value) {
+      locator<CourseService>().featuredCourse(cat: category!.id!.toString()).then((value) {
         setState(() {
           featuredListData = value;
         });

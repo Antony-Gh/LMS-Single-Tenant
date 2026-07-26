@@ -1,3 +1,4 @@
+import 'package:esoi/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:esoi/app/models/course_model.dart';
 import 'package:esoi/app/models/user_model.dart';
@@ -75,7 +76,7 @@ class _ResultSearchPageState extends State<ResultSearchPage>
       isLoading = true;
     });
 
-    var res = await CourseService.search(searchText);
+    var res = await locator<CourseService>().search(searchText);
 
     classesData = res.$1;
     usersData = res.$2;

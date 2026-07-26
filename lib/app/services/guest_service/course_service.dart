@@ -9,7 +9,6 @@ import 'package:esoi/app/models/user_model.dart';
 import 'package:esoi/common/data/api_public_data.dart';
 import 'package:esoi/common/utils/app_text.dart';
 import 'package:esoi/common/utils/constants.dart';
-import 'package:http/http.dart';
 import 'package:esoi/common/utils/http_handler.dart';
 
 import '../../../common/enums/error_enum.dart';
@@ -17,8 +16,15 @@ import '../../../common/utils/error_handler.dart';
 import '../../../common/components.dart';
 import '../../models/single_content_model.dart';
 
+import 'package:esoi/core/network/api/course_api.dart';
+import 'package:dio/dio.dart' as dio;
+
 class CourseService {
-  static Future<List<CourseModel>> getAll({
+  final CourseApi _courseApi;
+
+  CourseService(this._courseApi);
+
+  Future<List<CourseModel>> getAll({
     required int offset,
     bool upcoming = false,
     bool free = false,
@@ -33,27 +39,25 @@ class CourseService {
   }) async {
     List<CourseModel> data = [];
     try {
-      String url =
-          '${Constants.baseUrl}${bundle ? 'bundles' : 'courses'}?offset=$offset&limit=10';
-
-      if (upcoming) url += '&upcoming=1';
-      if (free) url += '&free=1';
-      if (discount) url += '&discount=1';
-      if (downloadable) url += '&downloadable=1';
-      if (reward) url += '&reward=1';
-
-      if (sort != null) url += '&sort=$sort';
-      if (cat != null) url += '&cat=$cat';
-
+      
+      Map<String, dynamic> queryParameters = {
+        'offset': offset,
+        'limit': 10,
+      };
+      if (upcoming) queryParameters['upcoming'] = 1;
+      if (free) queryParameters['free'] = 1;
+      if (discount) queryParameters['discount'] = 1;
+      if (downloadable) queryParameters['downloadable'] = 1;
+      if (reward) queryParameters['reward'] = 1;
+      if (sort != null) queryParameters['sort'] = sort;
+      if (cat != null) queryParameters['cat'] = cat;
       if (filterOption != null && filterOption.isNotEmpty) {
-        for (int i = 0; i < filterOption.length; i++) {
-          url += '&filter_option=${filterOption[i]}';
-        }
+        queryParameters['filter_option'] = filterOption;
       }
+      
+      dio.Response res = await _courseApi.getAll(bundle, queryParameters);
+      var jsonRes = res.data;
 
-      Response res = await httpGet(url);
-
-      var jsonRes = jsonDecode(res.body);
 
       if (jsonRes['success'] ?? false) {
         if (bundle) {
@@ -65,7 +69,6 @@ class CourseService {
             data.add(CourseModel.fromJson(json));
           });
         }
-        log('link from url:${url}');
         log('course count : ${data.length}');
         return data;
       } else {
@@ -76,15 +79,13 @@ class CourseService {
     }
   }
 
-  static Future<SingleCourseModel?> getOverviewCourseData(int id, bool isBundle,
+  Future<SingleCourseModel?> getOverviewCourseData(int id, bool isBundle,
       {bool isPrivate = false}) async {
     try {
-      String url =
-          '${Constants.baseUrl}${isPrivate ? 'panel/webinars' : isBundle ? 'panel/bundles' : 'panel/webinars'}/$id';
+      
+      dio.Response res = await _courseApi.getOverviewCourseData(id, isBundle, isPrivate);
+      var jsonRes = res.data;
 
-      Response res = await httpGet(url, isSendToken: true);
-
-      var jsonRes = jsonDecode(res.body);
 
       if (jsonRes['success'] ?? false) {
         return SingleCourseModel.fromJson(
@@ -98,7 +99,7 @@ class CourseService {
     }
   }
 
-  static Future<SingleCourseModel?> getSingleCourseData(
+  Future<SingleCourseModel?> getSingleCourseData(
     int id,
     bool isBundle, {
     bool isPrivate = false,
@@ -144,7 +145,7 @@ class CourseService {
     }
   }
 
-  static Future<List<CourseModel>> featuredCourse({String? cat}) async {
+  Future<List<CourseModel>> featuredCourse({String? cat}) async {
     List<CourseModel> data = [];
     try {
       String url = '${Constants.baseUrl}featured-courses';
@@ -179,7 +180,7 @@ class CourseService {
     }
   }
 
-  static Future<List<CourseModel>> getBundleWebinars(int bundleId) async {
+  Future<List<CourseModel>> getBundleWebinars(int bundleId) async {
     List<CourseModel> data = [];
     try {
       String url = '${Constants.baseUrl}bundles/$bundleId/webinars';
@@ -212,7 +213,7 @@ class CourseService {
     }
   }
 
-  static Future<List<CourseModel>> bundleCourses(int bundleId) async {
+  Future<List<CourseModel>> bundleCourses(int bundleId) async {
     List<CourseModel> data = [];
     try {
       String url = '${Constants.baseUrl}bundles/$bundleId/webinars';
@@ -245,7 +246,7 @@ class CourseService {
     }
   }
 
-  static Future<List<String>> getReasons() async {
+  Future<List<String>> getReasons() async {
     List<String> data = [];
     try {
       String url = '${Constants.baseUrl}courses/reports/reasons';
@@ -279,14 +280,13 @@ class CourseService {
     }
   }
 
-  static Future<List<NoticeModel>> getNotices(int id) async {
+  Future<List<NoticeModel>> getNotices(int id) async {
     List<NoticeModel> data = [];
     try {
-      String url = '${Constants.baseUrl}panel/webinars/$id/noticeboards';
+      
+      dio.Response res = await _courseApi.getNotices(id);
+      var jsonRes = res.data;
 
-      Response res = await httpGetWithToken(url);
-
-      var jsonRes = jsonDecode(res.body);
 
       if (jsonRes['success']) {
         jsonRes['data'].forEach((json) {
@@ -302,7 +302,7 @@ class CourseService {
     }
   }
 
-  static Future<bool> reportCourse(
+  Future<bool> reportCourse(
       String reason, int courseId, String message) async {
     try {
       String url = '${Constants.baseUrl}courses/$courseId/report';
@@ -324,7 +324,7 @@ class CourseService {
     }
   }
 
-  static Future<bool> toggle(
+  Future<bool> toggle(
       int courseId, String itemName, String itemId, bool status) async {
     try {
       String url = '${Constants.baseUrl}courses/$courseId/toggle';
@@ -346,7 +346,7 @@ class CourseService {
     }
   }
 
-  static Future<bool> addFavorite(int courseId, bool isBundle) async {
+  Future<bool> addFavorite(int courseId, bool isBundle) async {
     try {
       String url = '${Constants.baseUrl}panel/favorites/toggle2';
 
@@ -369,7 +369,7 @@ class CourseService {
     }
   }
 
-  static Future<
+  Future<
       (
         List<CourseModel> courseData,
         List<UserModel> usersData
@@ -402,7 +402,7 @@ class CourseService {
     }
   }
 
-  static Future<List<ContentModel>> getContent(int courseId) async {
+  Future<List<ContentModel>> getContent(int courseId) async {
     List<ContentModel> data = [];
 
     try {
@@ -445,7 +445,7 @@ class CourseService {
     }
   }
 
-  static Future<String?> getContentJSON(int courseId) async {
+  Future<String?> getContentJSON(int courseId) async {
     try {
       String url = '${Constants.baseUrl}courses/$courseId/content';
       print('📡 getContentJSON URL: $url');
@@ -483,7 +483,7 @@ class CourseService {
     }
   }
 
-  static Future<SingleContentModel?> getSingleContent(String url) async {
+  Future<SingleContentModel?> getSingleContent(String url) async {
     try {
       Response res =
           await httpGetWithToken(url, isRedirectingStatusCode: false);
@@ -501,7 +501,7 @@ class CourseService {
     }
   }
 
-  static Future<String?> getSingleContentJSON(String url) async {
+  Future<String?> getSingleContentJSON(String url) async {
     try {
       Response res =
           await httpGetWithToken(url, isRedirectingStatusCode: false);

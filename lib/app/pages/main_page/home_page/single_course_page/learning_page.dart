@@ -1,3 +1,4 @@
+import 'package:esoi/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:esoi/app/models/content_model.dart';
 import 'package:esoi/app/models/forum_model.dart';
@@ -102,7 +103,7 @@ class _LearningPageState extends State<LearningPage>
       isContentLoading = true;
     });
 
-    contents = await CourseService.getContent(courseData!.id!);
+    contents = await locator<CourseService>().getContent(courseData!.id!);
 
     if (canOffLoading) {
       setState(() {
@@ -112,7 +113,7 @@ class _LearningPageState extends State<LearningPage>
   }
 
   Future getNoticesData() async {
-    noticesData = await CourseService.getNotices(courseData!.id!);
+    noticesData = await locator<CourseService>().getNotices(courseData!.id!);
 
     setState(() {});
   }

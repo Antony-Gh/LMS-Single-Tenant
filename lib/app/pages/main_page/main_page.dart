@@ -60,7 +60,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   getData() {
-    CourseService.getReasons();
+    locator<CourseService>().getReasons();
 
     AppData.getAccessToken().then((String value) {
       if (value.isNotEmpty) {

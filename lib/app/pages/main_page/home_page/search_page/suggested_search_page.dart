@@ -1,3 +1,4 @@
+import 'package:esoi/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:esoi/app/models/course_model.dart';
 import 'package:esoi/app/pages/main_page/home_page/search_page/result_search_page.dart';
@@ -55,7 +56,7 @@ class SuggestedSearchPageState extends State<SuggestedSearchPage> {
       isLoading = true;
     });
 
-    suggestedData = await CourseService.getAll(offset: 0);
+    suggestedData = await locator<CourseService>().getAll(offset: 0);
 
     suggestedData.shuffle();
 

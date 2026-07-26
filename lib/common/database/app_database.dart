@@ -33,7 +33,7 @@ class AppDataBase {
               jsonEncode(purchaseData[i].webinar!.toJson()));
         } else {
           List<CourseModel> bundleWebinars =
-              await CourseService.getBundleWebinars(courseId);
+              await locator<CourseService>().getBundleWebinars(courseId);
 
           for (var j = 0; j < bundleWebinars.length; j++) {
             print('get bundle course: ${bundleWebinars[j].id}');
@@ -54,7 +54,7 @@ class AppDataBase {
     // check course is exist in db or no
     if (!courseBox.containsKey(courseId)) {
       // get contents course
-      String? contentJson = await CourseService.getContentJSON(courseId);
+      String? contentJson = await locator<CourseService>().getContentJSON(courseId);
       print('get content course: $courseId');
 
       if (contentJson != null) {
@@ -71,7 +71,7 @@ class AppDataBase {
           for (var iii = 0; iii < (contents[ii].items?.length ?? 0); iii++) {
             // get single content data
             String? singleContentJson =
-                await CourseService.getSingleContentJSON(
+                await locator<CourseService>().getSingleContentJSON(
                     contents[ii].items![iii].link ?? '');
             print('get single content: ${iii + 1}');
 

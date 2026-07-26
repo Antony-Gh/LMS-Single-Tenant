@@ -52,49 +52,49 @@ class HomeProvider extends ChangeNotifier {
   }
 
   Future getDeaturedCourseData() async {
-    await CourseService.featuredCourse().then((value) {
+    await locator<CourseService>().featuredCourse().then((value) {
       isLoadingFeaturedListData = false;
       featuredListData = value;
     });
   }
 
   Future getBundleData() async {
-    await CourseService.getAll(offset: 0, bundle: true).then((value) {
+    await locator<CourseService>().getAll(offset: 0, bundle: true).then((value) {
       isLoadingBundleData = false;
       bundleData = value;
     });
   }
 
   Future getNewestData() async {
-    await CourseService.getAll(offset: 0, sort: 'newest').then((value) {
+    await locator<CourseService>().getAll(offset: 0, sort: 'newest').then((value) {
       isLoadingNewsetListData = false;
       newsetListData = value;
     });
   }
 
   Future getBestRatesData() async {
-    await CourseService.getAll(offset: 0, sort: 'best_rates').then((value) {
+    await locator<CourseService>().getAll(offset: 0, sort: 'best_rates').then((value) {
       isLoadingBestRatedListData = false;
       bestRatedListData = value;
     });
   }
 
   Future getBestsellersData() async {
-    await CourseService.getAll(offset: 0, sort: 'bestsellers').then((value) {
+    await locator<CourseService>().getAll(offset: 0, sort: 'bestsellers').then((value) {
       isLoadingBestSellingListData = false;
       bestSellingListData = value;
     });
   }
 
   Future getDiscountData() async {
-    await CourseService.getAll(offset: 0, discount: true).then((value) {
+    await locator<CourseService>().getAll(offset: 0, discount: true).then((value) {
       isLoadingDiscountListData = false;
       discountListData = value;
     });
   }
 
   Future getFreeData() async {
-    await CourseService.getAll(offset: 0, free: true).then((value) {
+    await locator<CourseService>().getAll(offset: 0, free: true).then((value) {
       isLoadingFreeListData = false;
       freeListData = value;
     });
