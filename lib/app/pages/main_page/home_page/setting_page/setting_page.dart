@@ -126,7 +126,7 @@ class _SettingPageState extends State<SettingPage>
       setState(() {});
     });
 
-    UserService.getLoginHistory().then((value) {
+    locator<UserService>().getLoginHistory().then((value) {
       loginHistory = value;
       setState(() {});
     });
@@ -304,7 +304,7 @@ class _SettingPageState extends State<SettingPage>
                           isLoadingDeleteAccount = true;
                         });
 
-                        bool? res = await UserService.deleteAccount();
+                        bool? res = await locator<UserService>().deleteAccount();
 
                         if (res) {
                           await AppData.saveCurrency('');
@@ -421,7 +421,7 @@ class _SettingPageState extends State<SettingPage>
                         isLoading = true;
                       });
 
-                      bool res = await UserService.updateInfo(
+                      bool res = await locator<UserService>().updateInfo(
                           emailController.text.trim().toEnglishDigit(),
                           nameController.text.trim().toEnglishDigit(),
                           phoneController.text.trim().toEnglishDigit(),
@@ -442,7 +442,7 @@ class _SettingPageState extends State<SettingPage>
                           if (newPasswordController.text.trim().compareTo(
                                   retypePasswordController.text.trim()) ==
                               0) {
-                            await UserService.updatePassword(
+                            await locator<UserService>().updatePassword(
                               currentPasswordController.text
                                   .trim()
                                   .toEnglishDigit(),
@@ -459,7 +459,7 @@ class _SettingPageState extends State<SettingPage>
                         if (localImage != null ||
                             indentityScanImage != null ||
                             certificateImage != null) {
-                          await UserService.updateImage(
+                          await locator<UserService>().updateImage(
                               localImage, indentityScanImage, certificateImage);
                         }
 

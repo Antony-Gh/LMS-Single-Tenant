@@ -51,7 +51,7 @@ class _MainPageState extends State<MainPage> {
 
       FirebaseMessaging.instance.getToken().then((value) {
         try {
-          UserService.sendFirebaseToken(value!);
+          locator<UserService>().sendFirebaseToken(value!);
         } catch (_) {}
       });
     });
@@ -64,7 +64,7 @@ class _MainPageState extends State<MainPage> {
 
     AppData.getAccessToken().then((String value) {
       if (value.isNotEmpty) {
-        UserService.getAllNotification();
+        locator<UserService>().getAllNotification();
       }
     });
   }

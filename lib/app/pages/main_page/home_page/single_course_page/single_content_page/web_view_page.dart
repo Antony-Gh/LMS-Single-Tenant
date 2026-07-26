@@ -1,3 +1,4 @@
+import 'package:esoi/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -176,7 +177,7 @@ class _WebViewPageState extends State<WebViewPage> {
   load() async {
     if (isSendTokenInHeader) {
       if (csrfToken.isEmpty) {
-        csrfToken = await UserService.csrfToken();
+        csrfToken = await locator<UserService>().csrfToken();
       }
     }
 

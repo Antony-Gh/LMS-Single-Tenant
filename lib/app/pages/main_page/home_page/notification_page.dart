@@ -38,7 +38,7 @@ class _NotificationPageState extends State<NotificationPage> {
                   onTap: () {
                     if (locator<UserProvider>().notification[index].status !=
                         'read') {
-                      UserService.seenNotification(
+                      locator<UserService>().seenNotification(
                           locator<UserProvider>().notification[index].id!);
 
                       locator<UserProvider>().notification[index].status =

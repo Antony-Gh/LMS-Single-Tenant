@@ -1,3 +1,4 @@
+import 'package:esoi/locator.dart';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -195,7 +196,7 @@ class SupportWidget {
                     isBorder: true, iconPathLeft: AppAssets.profileSvg),
                 space(12),
                 FutureBuilder(
-                  future: UserService.getPurchaseCourse(),
+                  future: locator<UserService>().getPurchaseCourse(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done ||
                         snapshot.hasData) {

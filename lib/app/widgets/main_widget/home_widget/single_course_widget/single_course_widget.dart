@@ -1175,7 +1175,7 @@ class SingleCourseWidget {
                           isLoading = true;
                           state(() {});
 
-                          bool res = await UserService.storeReview(
+                          bool res = await locator<UserService>().storeReview(
                               courseData.id!,
                               contentQuality,
                               instructorSkills,

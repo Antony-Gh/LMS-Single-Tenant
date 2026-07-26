@@ -1,3 +1,4 @@
+import 'package:esoi/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:esoi/app/models/reward_point_model.dart';
@@ -35,7 +36,7 @@ class _RewardPointPageState extends State<RewardPointPage> {
       isLoading = true;
     });
 
-    data = await UserService.getRewardPointsData();
+    data = await locator<UserService>().getRewardPointsData();
 
     setState(() {
       isLoading = false;

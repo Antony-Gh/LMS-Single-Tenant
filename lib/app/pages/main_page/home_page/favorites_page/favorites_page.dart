@@ -1,3 +1,4 @@
+import 'package:esoi/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/svg.dart';
@@ -35,7 +36,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
       isLoading = true;
     });
 
-    favorites = await UserService.getFavorites();
+    favorites = await locator<UserService>().getFavorites();
 
     setState(() {
       isLoading = false;
@@ -75,7 +76,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        UserService.deleteFavorite(
+                                        locator<UserService>().deleteFavorite(
                                             favorites[index].id!);
                                         favorites.removeAt(index);
 

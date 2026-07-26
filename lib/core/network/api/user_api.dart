@@ -33,6 +33,14 @@ class UserApi {
   Future<Response> registerBadge() {
     return _apiClient.dio.post('panel/users/register-badge');
   }
+  
+  Future<Response> getCsrfToken() {
+    return _apiClient.dio.get('panel/csrf-token');
+  }
+
+  Future<Response> getTeacherClasses() {
+    return _apiClient.dio.get('panel/classes');
+  }
 
   Future<Response> getProfile() {
     return _apiClient.dio.get('panel/profile');

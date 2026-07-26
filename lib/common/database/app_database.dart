@@ -1,3 +1,4 @@
+import 'package:esoi/locator.dart';
 import 'dart:convert';
 
 import 'package:hive/hive.dart';
@@ -13,7 +14,7 @@ class AppDataBase {
   static Future getCoursesAndSaveInDB() async {
     // get all purchase course
     List<PurchaseCourseModel> purchaseData =
-        await UserService.getPurchaseCourse();
+        await locator<UserService>().getPurchaseCourse();
 
     if (purchaseData.isNotEmpty) {
       // open course box

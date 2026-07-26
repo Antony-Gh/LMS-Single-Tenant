@@ -63,13 +63,13 @@ class _ClassesPageState extends State<ClassesPage>
     });
 
     if (locator<UserProvider>().profile?.roleName != 'user') {
-      var data = await UserService.getTeacherClassess();
+      var data = await locator<UserService>().getTeacherClassess();
 
       myClasses = data.$1;
       purchases = data.$2;
       invitations = data.$3;
     } else {
-      purchases = await UserService.getPurchaseCourse();
+      purchases = await locator<UserService>().getPurchaseCourse();
     }
 
     if (mounted) {

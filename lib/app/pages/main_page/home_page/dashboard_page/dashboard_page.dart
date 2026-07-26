@@ -57,7 +57,7 @@ class _DashboardPageState extends State<DashboardPage> {
       isLoading = true;
     });
 
-    data = await UserService.getDashboardData();
+    data = await locator<UserService>().getDashboardData();
 
     dataSorted = data?.monthlyChart?.data ?? [];
     // print(dataSorted);

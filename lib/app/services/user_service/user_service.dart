@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:http/http.dart';
 import 'package:esoi/app/models/course_model.dart';
 import 'package:esoi/app/models/login_history_model.dart';
 import 'package:esoi/app/models/profile_model.dart';
@@ -23,17 +22,18 @@ import '../../models/dashboard_model.dart';
 import '../../models/favorite_model.dart';
 import '../../models/notification_model.dart';
 
+import 'package:esoi/core/network/api/user_api.dart';
+
 class UserService {
-  static Future<List<PurchaseCourseModel>> getPurchaseCourse() async {
+  final UserApi _userApi;
+
+  UserService(this._userApi);
+
+  Future<List<PurchaseCourseModel>> getPurchaseCourse() async {
     List<PurchaseCourseModel> data = [];
     // try{
-    String url = '${Constants.baseUrl}panel/webinars/purchases';
-
-    Response res = await httpGetWithToken(
-      url,
-    );
-
-    var jsonResponse = jsonDecode(res.body);
+    dio.Response res = await _userApi.getPurchaseCourse();
+    var jsonResponse = res.data;
 
     if (jsonResponse['success'] ?? false) {
       jsonResponse['data']?['purchases']?.forEach((json) {
@@ -50,15 +50,10 @@ class UserService {
     // }
   }
 
-  static Future<String?> getPurchaseCourseJSON() async {
+  Future<String?> getPurchaseCourseJSON() async {
     try {
-      String url = '${Constants.baseUrl}panel/webinars/purchases';
-
-      Response res = await httpGetWithToken(
-        url,
-      );
-
-      var jsonResponse = jsonDecode(res.body);
+      dio.Response res = await _userApi.getPurchaseCourse();
+    var jsonResponse = res.data;
 
       if (jsonResponse['success']) {
         return jsonEncode(jsonResponse['data']?['webinars'] ?? []);
@@ -71,16 +66,11 @@ class UserService {
     }
   }
 
-  static Future<List<NotificationModel>> getAllNotification() async {
+  Future<List<NotificationModel>> getAllNotification() async {
     List<NotificationModel> data = [];
     try {
-      String url = '${Constants.baseUrl}panel/notifications';
-
-      Response res = await httpGetWithToken(
-        url,
-      );
-
-      var jsonResponse = jsonDecode(res.body);
+      dio.Response res = await _userApi.getAllNotification();
+      var jsonResponse = res.data;
 
       if (jsonResponse['success']) {
         jsonResponse['data']?['notifications']?.forEach((json) {
@@ -98,16 +88,11 @@ class UserService {
     }
   }
 
-  static Future<List<FavoriteModel>> getFavorites() async {
+  Future<List<FavoriteModel>> getFavorites() async {
     List<FavoriteModel> data = [];
     // try{
-    String url = '${Constants.baseUrl}panel/favorites';
-
-    Response res = await httpGetWithToken(
-      url,
-    );
-
-    var jsonResponse = jsonDecode(res.body);
+    dio.Response res = await _userApi.getFavorites();
+      var jsonResponse = res.data;
     print(jsonResponse);
 
     if (jsonResponse['success'] ?? false) {
@@ -126,7 +111,7 @@ class UserService {
     // }
   }
 
-  static Future<List<LoginHistoryModel>> getLoginHistory() async {
+  Future<List<LoginHistoryModel>> getLoginHistory() async {
     List<LoginHistoryModel> data = [];
     try {
       String url = '${Constants.baseUrl}panel/users/login/history';
@@ -152,7 +137,7 @@ class UserService {
     }
   }
 
-  static Future<bool> deleteFavorite(int id) async {
+  Future<bool> deleteFavorite(int id) async {
     try {
       String url = '${Constants.baseUrl}panel/favorites/$id';
 
@@ -171,16 +156,10 @@ class UserService {
     }
   }
 
-  static Future<String> csrfToken() async {
+  Future<String> csrfToken() async {
     try {
-      String url = '${Constants.baseUrl}panel/csrf-token';
-
-      Response res = await httpGetWithToken(
-        url,
-      );
-
-      var jsonResponse = jsonDecode(res.body);
-      print(jsonResponse);
+      dio.Response res = await _userApi.getCsrfToken();
+      var jsonResponse = res.data;
 
       if (res.statusCode == 200) {
         return jsonResponse['csrf_token'];
@@ -193,7 +172,7 @@ class UserService {
     }
   }
 
-  static Future<bool> deleteAccount() async {
+  Future<bool> deleteAccount() async {
     try {
       String url = '${Constants.baseUrl}panel/delete-account-request';
 
@@ -214,7 +193,7 @@ class UserService {
     }
   }
 
-  static Future<
+  Future<
       (
         List<CourseModel> myClasses,
         List<PurchaseCourseModel> purchases,
@@ -225,13 +204,8 @@ class UserService {
     List<CourseModel> invitations = [];
 
     // try{
-    String url = '${Constants.baseUrl}panel/classes';
-
-    Response res = await httpGetWithToken(
-      url,
-    );
-
-    var jsonResponse = jsonDecode(res.body);
+    dio.Response res = await _userApi.getTeacherClasses();
+    var jsonResponse = res.data;
 
     if (jsonResponse['success'] ?? true) {
       jsonResponse['my_classes']?.forEach((json) {
@@ -253,11 +227,11 @@ class UserService {
     }
 
     // }catch(e){
-    //   return ( myClasses, purchases, invitations );
+    //   return (myClasses, purchases, invitations);
     // }
   }
 
-  static Future<ProfileModel?> getProfile() async {
+  Future<ProfileModel?> getProfile() async {
     try {
       String url = '${Constants.baseUrl}panel/profile-setting';
 
@@ -279,7 +253,7 @@ class UserService {
     }
   }
 
-  static Future<DashboardModel?> getDashboardData() async {
+  Future<DashboardModel?> getDashboardData() async {
     try {
       String url = '${Constants.baseUrl}panel/quick-info';
 
@@ -299,7 +273,7 @@ class UserService {
     }
   }
 
-  static Future<RewardPointModel?> getRewardPointsData() async {
+  Future<RewardPointModel?> getRewardPointsData() async {
     try {
       String url = '${Constants.baseUrl}panel/rewards';
 
@@ -319,7 +293,7 @@ class UserService {
     }
   }
 
-  static Future<bool> seenNotification(int id) async {
+  Future<bool> seenNotification(int id) async {
     try {
       String url = '${Constants.baseUrl}panel/notifications/$id/read';
 
@@ -340,7 +314,7 @@ class UserService {
     }
   }
 
-  static Future<bool> storeReview(
+  Future<bool> storeReview(
       int postId,
       int contentQuality,
       int instructorSkills,
@@ -376,7 +350,7 @@ class UserService {
     }
   }
 
-  static Future<bool> updateInfo(
+  Future<bool> updateInfo(
       String email,
       String name,
       String phone,
@@ -449,7 +423,7 @@ class UserService {
     }
   }
 
-  static Future<bool> updatePassword(
+  Future<bool> updatePassword(
       String currentPassword, String newPassword) async {
     try {
       String url = '${Constants.baseUrl}panel/profile-setting/password';
@@ -474,7 +448,7 @@ class UserService {
     }
   }
 
-  static Future<bool> sendFirebaseToken(String token) async {
+  Future<bool> sendFirebaseToken(String token) async {
     try {
       String url = '${Constants.baseUrl}panel/users/fcm';
 
@@ -498,7 +472,7 @@ class UserService {
     }
   }
 
-  static Future<bool> updateImage(
+  Future<bool> updateImage(
       File? profile, File? indentity, File? certificate) async {
     try {
       String url = '${Constants.baseUrl}panel/profile-setting/images';

@@ -5,6 +5,8 @@ import 'package:esoi/core/storage/secure_storage_helper.dart';
 import 'package:esoi/core/network/api_client.dart';
 import 'package:esoi/core/network/api/auth_api.dart';
 import 'package:esoi/app/services/authentication_service/authentication_service.dart';
+import 'package:esoi/core/network/api/user_api.dart';
+import 'package:esoi/app/services/user_service/user_service.dart';
 import 'package:esoi/app/providers/app_language_provider.dart';
 import 'package:esoi/app/providers/drawer_provider.dart';
 import 'package:esoi/app/providers/home_provider.dart';
@@ -25,6 +27,8 @@ locatorSetup(AppConfig config) async {
   locator.registerSingleton<Dio>(Dio());
   locator.registerSingleton<AuthApi>(AuthApi());
   locator.registerSingleton<AuthenticationService>(AuthenticationService(locator<AuthApi>()));
+  locator.registerSingleton<UserApi>(UserApi());
+  locator.registerSingleton<UserService>(UserService(locator<UserApi>()));
 
   locator.registerSingleton<AppLanguage>(AppLanguage());
   locator.registerSingleton<CurrencyUtils>(CurrencyUtils());
