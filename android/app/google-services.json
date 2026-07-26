@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "50171865202",
+    "project_id": "codvation-f2abd",
+    "storage_bucket": "codvation-f2abd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:50171865202:android:7be92a03554ba319193aeb",
+        "android_client_info": {
+          "package_name": "com.topbisness.codvation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "50171865202-2s331h1n3f8gtf5n72pk6kmuonb7a8dc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.topbisness.codvation",
+            "certificate_hash": "f05cda2f880f81250300ea3b0695dccd45c7ad9b"
+          }
+        },
+        {
+          "client_id": "50171865202-d53gm31k3lk0aj512bi6k4dhjsvctrlh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.topbisness.codvation",
+            "certificate_hash": "c3d11861bd4c38a5649efc8951b8a79dff99796a"
+          }
+        },
+        {
+          "client_id": "50171865202-7kqt32vnmj8mi0141kikojtdk16limv8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1I-L4nPjEwHLa-8o-eHEcujrVFORMYh8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "50171865202-7kqt32vnmj8mi0141kikojtdk16limv8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "50171865202-4f115mlr5lg8vaoodn85ndm498319jr0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.topbisness.codvation"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:50171865202:android:8af817818ec2dcab193aeb",
+        "android_client_info": {
+          "package_name": "com.topbusiness.esoi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "50171865202-7kqt32vnmj8mi0141kikojtdk16limv8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1I-L4nPjEwHLa-8o-eHEcujrVFORMYh8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "50171865202-7kqt32vnmj8mi0141kikojtdk16limv8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "50171865202-4f115mlr5lg8vaoodn85ndm498319jr0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.topbisness.codvation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,4 @@
+enum PageNames{
+  home,
+  myClasses
+}

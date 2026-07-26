@@ -1,0 +1,2765 @@
+{
+  "info": {
+    "_postman_id": "722c3bdf-26ff-413e-b80c-ef05d25eb5f6",
+    "name": "Rocket Mobile API",
+    "description": "Postman collection generated from routes/api.php, routes/api/auth.php, routes/api/guest.php, routes/api/user.php, and routes/api/instructor.php.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "37128995"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register Step",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"kariemibrahiem110@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"password_confirmation\": \"123456\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/register/step/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "register",
+                "step",
+                "1"
+              ]
+            },
+            "description": "Step-based request. Step 1: country_code (required if mobile), mobile/email, password, password_confirmation. Step 2: user_id, code. Step 3: user_id, full_name, referral_code optional."
+          },
+          "response": []
+        },
+        {
+          "name": "Register Step 2",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"user_id\": 5,\r\n  \"code\": \"12345\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/register/step/2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "register",
+                "step",
+                "2"
+              ]
+            },
+            "description": "Step-based request. Step 1: country_code (required if mobile), mobile/email, password, password_confirmation. Step 2: user_id, code. Step 3: user_id, full_name, referral_code optional."
+          },
+          "response": []
+        },
+        {
+          "name": "Register Step 3",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"user_id\": 5,\r\n  \"full_name\": \"kariem\",\r\n  \"referral_code\": null\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/register/step/3",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "register",
+                "step",
+                "3"
+              ]
+            },
+            "description": "Step-based request. Step 1: country_code (required if mobile), mobile/email, password, password_confirmation. Step 2: user_id, code. Step 3: user_id, full_name, referral_code optional."
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"password\":  \"123456\",\r\n    \"username\":  \"user@example.com\" // or \"username\": \"201012345678\",\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "login"
+              ]
+            },
+            "description": "Required: username, password. Username can be email or mobile."
+          },
+          "response": []
+        },
+        {
+          "name": "Forget Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":  \"user@example.com\",\r\n    \"country_code\":  \"+20\",\r\n    \"type\":  \"email\",\r\n    \"mobile\":  \"1012345678\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/forget-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "forget-password"
+              ]
+            },
+            "description": "Required: type. If type=email send email. If type=mobile send mobile + country_code."
+          },
+          "response": []
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":  \"user@example.com\",\r\n    \"password_confirmation\":  \"123456\",\r\n    \"password\":  \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/reset-password/{{token}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "reset-password",
+                "{{token}}"
+              ]
+            },
+            "description": "Required: email, password, password_confirmation. Token comes from URL."
+          },
+          "response": []
+        },
+        {
+          "name": "Verification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\":  \"user@example.com\",\r\n    \"referral_code\":  null,\r\n    \"code\":  \"12345\",\r\n    \"email\":  \"user@example.com\",\r\n    \"mobile\":  \"201012345678\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/verification",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "verification"
+              ]
+            },
+            "description": "Required: code plus email/mobile/username depending on flow. referral_code optional."
+          },
+          "response": []
+        },
+        {
+          "name": "Google Redirect",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/google",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "google"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Facebook Redirect",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/facebook",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "facebook"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Google Callback",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":  \"user@example.com\",\r\n    \"name\":  \"John Doe\",\r\n    \"id\":  \"google-social-id\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/google/callback",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "google",
+                "callback"
+              ]
+            },
+            "description": "Required: email, name, id."
+          },
+          "response": []
+        },
+        {
+          "name": "Facebook Callback",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":  \"user@example.com\",\r\n    \"name\":  \"John Doe\",\r\n    \"id\":  \"facebook-social-id\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/facebook/callback",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "facebook",
+                "callback"
+              ]
+            },
+            "description": "Required: email, name, id."
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "logout"
+              ]
+            },
+            "description": "No static validation rules were found automatically for this endpoint. Body may be optional or dynamic."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Guest",
+      "item": [
+        {
+          "name": "Courses List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/courses",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "courses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Course Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/courses/{{course_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "courses",
+                "{{course_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Course Content",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/courses/{{course_id}}/content",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "courses",
+                "{{course_id}}",
+                "content"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Course Quizzes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/courses/{{course_id}}/quizzes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "courses",
+                "{{course_id}}",
+                "quizzes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Course Certificates",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/courses/{{course_id}}/certificates",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "courses",
+                "{{course_id}}",
+                "certificates"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Course Report Reasons",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/courses/reports/reasons",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "courses",
+                "reports",
+                "reasons"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Report Course",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"message\":  \"This course contains invalid content.\",\r\n    \"reason\":  \"Spam\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/courses/{{course_id}}/report",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "courses",
+                "{{course_id}}",
+                "report"
+              ]
+            },
+            "description": "Required: reason, message."
+          },
+          "response": []
+        },
+        {
+          "name": "Toggle Course Learning",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\":  true,\r\n    \"item_id\":  1,\r\n    \"item\":  \"file_id\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/courses/{{course_id}}/toggle",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "courses",
+                "{{course_id}}",
+                "toggle"
+              ]
+            },
+            "description": "Required: item, item_id, status. item in file_id, session_id, text_lesson_id."
+          },
+          "response": []
+        },
+        {
+          "name": "Certificate Validation",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/certificate_validation?certificate_id=1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "certificate_validation"
+              ],
+              "query": [
+                {
+                  "key": "certificate_id",
+                  "value": "1",
+                  "description": "required|numeric"
+                }
+              ]
+            },
+            "description": "Required query param: certificate_id."
+          },
+          "response": []
+        },
+        {
+          "name": "Featured Courses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/featured-courses",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "featured-courses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Categories",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Category Courses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/categories/{{category_id}}/webinars",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "categories",
+                "{{category_id}}",
+                "webinars"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Trend Categories",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/trend-categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "trend-categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/search",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "search"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Providers Instructors",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/providers/instructors",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "providers",
+                "instructors"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Providers Organizations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/providers/organizations",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "providers",
+                "organizations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Providers Consultations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/providers/consultations",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "providers",
+                "consultations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reserve Meeting",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"date\":  \"2026-04-08\",\r\n    \"student_count\":  1,\r\n    \"meeting_type\":  \"online\",\r\n    \"description\":  \"Need consultation call\",\r\n    \"time_id\":  1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/meetings/reserve",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "meetings",
+                "reserve"
+              ]
+            },
+            "description": "Required: time_id, date, meeting_type. Optional: description, student_count."
+          },
+          "response": []
+        },
+        {
+          "name": "User Meetings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/users/{{user_id}}/meetings?date=1712534400",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "users",
+                "{{user_id}}",
+                "meetings"
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "1712534400",
+                  "description": "required|numeric"
+                }
+              ]
+            },
+            "description": "Required query param: date (unix timestamp)."
+          },
+          "response": []
+        },
+        {
+          "name": "User Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/users/{{user_id}}/profile",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "users",
+                "{{user_id}}",
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Send User Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":  \"sender@example.com\",\r\n    \"title\":  \"Hello\",\r\n    \"description\":  \"I want to ask about your courses.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/users/{{user_id}}/send-message",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "users",
+                "{{user_id}}",
+                "send-message"
+              ]
+            },
+            "description": "Required: title, email, description."
+          },
+          "response": []
+        },
+        {
+          "name": "Download File",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/files/{{file_id}}/download",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "files",
+                "{{file_id}}",
+                "download"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Blogs List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/blogs",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "blogs"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Blog Categories",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/blogs/categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "blogs",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Blog Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/blogs/{{blog_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "blogs",
+                "{{blog_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Advertising Banner",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/advertising-banner",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "advertising-banner"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Subscribe Plans",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/subscribe",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "subscribe"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Instructors",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/instructors",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructors"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Organizations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/organizations",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "organizations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Newsletter Subscribe",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":  \"user@example.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/newsletter",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "newsletter"
+              ]
+            },
+            "description": "Required: email."
+          },
+          "response": []
+        },
+        {
+          "name": "Contact",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":  \"user@example.com\",\r\n    \"message\":  \"Please contact me.\",\r\n    \"name\":  \"John Doe\",\r\n    \"phone\":  \"01012345678\",\r\n    \"subject\":  \"Need help\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/contact",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "contact"
+              ]
+            },
+            "description": "Required: name, email, phone, subject, message."
+          },
+          "response": []
+        },
+        {
+          "name": "Regions Countries",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/regions/countries",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "regions",
+                "countries"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Regions Provinces",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/regions/provinces/{{category_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "regions",
+                "provinces",
+                "{{category_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Regions Cities",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/regions/cities/{{category_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "regions",
+                "cities",
+                "{{category_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Regions Districts",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/regions/districts/{{category_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "regions",
+                "districts",
+                "{{category_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Countries Mobile Code",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/regions/countries/code",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "regions",
+                "countries",
+                "code"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Timezones",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/timezones",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "timezones"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Bundles List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/bundles",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "bundles"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Bundle Webinars",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/bundles/{{bundle_id}}/webinars",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "bundles",
+                "{{bundle_id}}",
+                "webinars"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Bundle Free",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/bundles/{{bundle_id}}/free",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "bundles",
+                "{{bundle_id}}",
+                "free"
+              ]
+            },
+            "description": "No static validation rules were found automatically for this endpoint. Body may be optional or dynamic."
+          },
+          "response": []
+        },
+        {
+          "name": "Bundle Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/bundles/{{bundle_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "bundles",
+                "{{bundle_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Products List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/products",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Product Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/products/{{file_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "products",
+                "{{file_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Product Categories",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/product_categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "product_categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Currency List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/currency/list",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "currency",
+                "list"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Push Test Notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/notification/new",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "notification",
+                "new"
+              ]
+            },
+            "description": "No static validation rules were found automatically for this endpoint. Body may be optional or dynamic."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Instructor",
+      "item": [
+        {
+          "name": "Bundles Export",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/instructor/bundles/{{bundle_id}}/export",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "bundles",
+                "{{bundle_id}}",
+                "export"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Bundles Index",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/instructor/bundles",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "bundles"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Bundles Store",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/instructor/bundles",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "bundles"
+              ]
+            },
+            "description": "No static validation rules were found automatically for this endpoint. Body may be optional or dynamic."
+          },
+          "response": []
+        },
+        {
+          "name": "Bundle Show",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/instructor/bundles/{{bundle_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "bundles",
+                "{{bundle_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Bundle Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/instructor/bundles/{{bundle_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "bundles",
+                "{{bundle_id}}"
+              ]
+            },
+            "description": "No static validation rules were found automatically for this endpoint. Body may be optional or dynamic."
+          },
+          "response": []
+        },
+        {
+          "name": "Bundle Delete",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/instructor/bundles/{{bundle_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "bundles",
+                "{{bundle_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Bundle Webinars Index",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/instructor/bundles/{{bundle_id}}/webinars",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "bundles",
+                "{{bundle_id}}",
+                "webinars"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Webinar Store All",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/instructor/webinar",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "webinar"
+              ]
+            },
+            "description": "No static validation rules were found automatically for this endpoint. Body may be optional or dynamic."
+          },
+          "response": []
+        },
+        {
+          "name": "Instructor Quizzes Results List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/instructor/quizzes/list",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "quizzes",
+                "list"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Instructor Quiz Store",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"time\":  10,\r\n    \"pass_mark\":  5,\r\n    \"certificate\":  false,\r\n    \"chapter_id\":  null,\r\n    \"title\":  \"Quiz title\",\r\n    \"attempt\":  1,\r\n    \"webinar_id\":  1,\r\n    \"active\":  true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/instructor/quizzes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "quizzes"
+              ]
+            },
+            "description": "Required: title, pass_mark. Optional: webinar_id, chapter_id, attempt, time, active, certificate."
+          },
+          "response": []
+        },
+        {
+          "name": "Instructor Quiz Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"time\":  10,\r\n    \"pass_mark\":  5,\r\n    \"certificate\":  false,\r\n    \"chapter_id\":  null,\r\n    \"title\":  \"Quiz title\",\r\n    \"attempt\":  1,\r\n    \"webinar_id\":  1,\r\n    \"active\":  true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/instructor/quizzes/{{quiz_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "quizzes",
+                "{{quiz_id}}"
+              ]
+            },
+            "description": "Required: title, pass_mark. Optional: webinar_id, chapter_id, attempt, time, active, certificate."
+          },
+          "response": []
+        },
+        {
+          "name": "Instructor Quiz Delete",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/instructor/quizzes/{{quiz_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "quizzes",
+                "{{quiz_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Meetings Root Debug",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/instructor/meetings",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "meetings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Meetings Requests",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/instructor/meetings/requests",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "meetings",
+                "requests"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Meetings Create Link",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"link\":  \"https://meet.example.com/room\",\r\n    \"reserved_meeting_id\":  1,\r\n    \"password\":  null\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/instructor/meetings/create-link",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "meetings",
+                "create-link"
+              ]
+            },
+            "description": "Required: link, reserved_meeting_id. Optional: password."
+          },
+          "response": []
+        },
+        {
+          "name": "Meetings Finish",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/instructor/meetings/{{meeting_id}}/finish",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "meetings",
+                "{{meeting_id}}",
+                "finish"
+              ]
+            },
+            "description": "No static validation rules were found automatically for this endpoint. Body may be optional or dynamic."
+          },
+          "response": []
+        },
+        {
+          "name": "Meetings Add Session",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/instructor/meetings/{{meeting_id}}/add-session",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "meetings",
+                "{{meeting_id}}",
+                "add-session"
+              ]
+            },
+            "description": "No static validation rules were found automatically for this endpoint. Body may be optional or dynamic."
+          },
+          "response": []
+        },
+        {
+          "name": "Comments My Class Comments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/instructor/comments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "comments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Comments Reply",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"reply\":  \"Thanks for your feedback\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/instructor/comments/{{comment_id}}/reply",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "comments",
+                "{{comment_id}}",
+                "reply"
+              ]
+            },
+            "description": "Required: reply."
+          },
+          "response": []
+        },
+        {
+          "name": "Assignment Submission",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/instructor/assignments/{{assignment_id}}/students",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "assignments",
+                "{{assignment_id}}",
+                "students"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Assignments Students",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/instructor/assignments/students",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "assignments",
+                "students"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Assignments Index",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/development/instructor/assignments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "assignments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Assignment Grade",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{teacher_access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"comment\":  \"Well done\",\r\n    \"grade\":  5\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/development/instructor/assignments/histories/{{assignment_history_id}}/rate",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "development",
+                "instructor",
+                "assignments",
+                "histories",
+                "{{assignment_history_id}}",
+                "rate"
+              ]
+            },
+            "description": "Grade payload for assignment history. Check controller response if extra keys are required in your runtime."
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    },
+    {
+      "key": "teacher_access_token",
+      "value": ""
+    },
+    {
+      "key": "user_id",
+      "value": "1"
+    },
+    {
+      "key": "course_id",
+      "value": "1"
+    },
+    {
+      "key": "bundle_id",
+      "value": "1"
+    },
+    {
+      "key": "quiz_id",
+      "value": "1"
+    },
+    {
+      "key": "quiz_result_id",
+      "value": "1"
+    },
+    {
+      "key": "comment_id",
+      "value": "1"
+    },
+    {
+      "key": "review_id",
+      "value": "1"
+    },
+    {
+      "key": "support_id",
+      "value": "1"
+    },
+    {
+      "key": "notification_id",
+      "value": "1"
+    },
+    {
+      "key": "favorite_id",
+      "value": "1"
+    },
+    {
+      "key": "meeting_id",
+      "value": "1"
+    },
+    {
+      "key": "assignment_id",
+      "value": "1"
+    },
+    {
+      "key": "assignment_history_id",
+      "value": "1"
+    },
+    {
+      "key": "forum_id",
+      "value": "1"
+    },
+    {
+      "key": "answer_id",
+      "value": "1"
+    },
+    {
+      "key": "chapter_id",
+      "value": "1"
+    },
+    {
+      "key": "session_id",
+      "value": "1"
+    },
+    {
+      "key": "file_id",
+      "value": "1"
+    },
+    {
+      "key": "lesson_id",
+      "value": "1"
+    },
+    {
+      "key": "blog_id",
+      "value": "1"
+    },
+    {
+      "key": "blog_comment_id",
+      "value": "1"
+    },
+    {
+      "key": "category_id",
+      "value": "1"
+    },
+    {
+      "key": "follow_id",
+      "value": "1"
+    },
+    {
+      "key": "gateway",
+      "value": "fawaterak"
+    },
+    {
+      "key": "register_step",
+      "value": "1"
+    },
+    {
+      "key": "token",
+      "value": "sample-token"
+    },
+    {
+      "key": "type",
+      "value": "student"
+    }
+  ]
+}
