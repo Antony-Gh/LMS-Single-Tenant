@@ -17,6 +17,7 @@ import '../../../../common/utils/object_instance.dart';
 import '../../../../config/assets.dart';
 import '../../../../config/colors.dart';
 import '../../../../config/styles.dart';
+import '../../../../locator.dart';
 import '../../../pages/main_page/home_page/cart_page/cart_page.dart';
 import '../main_widget.dart';
 
@@ -285,7 +286,7 @@ class HomeWidget {
                                       isLoading = true;
                                     });
 
-                                    bool res = await AuthenticationService
+                                    bool res = await locator<AuthenticationService>()
                                         .registerStep3(
                                             userId,
                                             nameController.text.trim(),

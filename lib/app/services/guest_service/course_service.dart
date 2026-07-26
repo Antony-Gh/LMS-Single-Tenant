@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:http/http.dart';
 
 import 'package:esoi/app/models/content_model.dart';
 import 'package:esoi/app/models/course_model.dart';
