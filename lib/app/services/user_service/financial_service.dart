@@ -196,4 +196,40 @@ class FinancialService {
       return false;
     }
   }
+
+  static Future<bool> updateOfflinePayment(int id, Map<String, dynamic> body) async {
+    try {
+      String url = '${Constants.baseUrl}panel/financial/offline-payments/$id';
+      Response res = await httpPutWithToken(url, body);
+      var jsonResponse = jsonDecode(res.body);
+
+      if (jsonResponse['success'] == true) {
+        ErrorHandler().showError(ErrorEnum.success, jsonResponse, readMessage: true);
+        return true;
+      } else {
+        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static Future<bool> deleteOfflinePayment(int id) async {
+    try {
+      String url = '${Constants.baseUrl}panel/financial/offline-payments/$id';
+      Response res = await httpDeleteWithToken(url, {});
+      var jsonResponse = jsonDecode(res.body);
+
+      if (jsonResponse['success'] == true) {
+        ErrorHandler().showError(ErrorEnum.success, jsonResponse, readMessage: true);
+        return true;
+      } else {
+        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
 }
