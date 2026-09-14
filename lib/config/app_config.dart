@@ -5,4 +5,5 @@ import 'branding_config.dart';
 abstract class AppConfig {
   ApiConfig get api;
   BrandingConfig get branding;
+  bool get enableDeveloperCrashScreen;
 }

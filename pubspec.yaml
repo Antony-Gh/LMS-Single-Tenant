@@ -88,6 +88,12 @@ dependencies:
   qr_flutter: ^4.1.0
   screen_protector: ^1.5.1
   flutter_secure_storage: ^10.3.1
+  flutter_dotenv: ^6.0.1
+  firebase_crashlytics: ^4.3.10
+  device_info_plus: ^11.5.0
+  package_info_plus: ^9.0.1
+  uuid: ^4.6.0
+  restart_app: ^1.8.3
 
 dependency_overrides:
   # flutter_widget_from_html_core: ^0.14.9
@@ -144,6 +150,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - .env
     - assets/image/flags/
     - assets/image/png/
     - assets/image/svg/

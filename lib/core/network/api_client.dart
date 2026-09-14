@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:esoi/config/app_config.dart';
 import 'package:esoi/locator.dart';
 import 'interceptors/auth_interceptor.dart';
+import 'interceptors/crashlytics_interceptor.dart';
 
 class ApiClient {
   late Dio _dio;
@@ -17,6 +18,7 @@ class ApiClient {
     ));
 
     _dio.interceptors.add(AuthInterceptor());
+    _dio.interceptors.add(CrashlyticsInterceptor());
     _dio.interceptors.add(LogInterceptor(
       request: true,
       requestHeader: true,

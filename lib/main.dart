@@ -81,6 +81,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'config/app_config.dart';
 import 'config/tenants/eldegiwy_config.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'core/error/crash_handler.dart';
+import 'app/widgets/error/custom_crash_screen.dart';
+import 'dart:async';
+import 'package:flutter/foundation.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -102,6 +107,8 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(CourseModelDBAdapter());
 
+  await dotenv.load(fileName: ".env");
+
   AppConfig appConfig = EldegiwyConfig();
   await locatorSetup(appConfig);
   await locator<AppLanguage>().getLanguage();
@@ -122,7 +129,22 @@ void main() async {
   //   print('token : ${value}');
   // });
 
-  runApp(const MyApp());
+  // Initialize Crash Handler (collects device info and sets up Crashlytics if enabled)
+  await CrashHandler.instance.initialize();
+
+  // Set Custom Error Screen for UI/Rendering errors
+  ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+    return CustomCrashScreen(errorDetails: errorDetails);
+  };
+
+  runZonedGuarded(() {
+    runApp(const MyApp());
+  }, (error, stack) {
+    if (!kIsWeb) {
+      CrashHandler.instance.recordError(error, stack, reason: 'runZonedGuarded Error');
+    }
+  });
+
   await ScreenProtector.preventScreenshotOn();
   await ScreenProtector.protectDataLeakageOn();
 }
@@ -156,7 +178,8 @@ class MyApp extends StatelessWidget {
           navigatorKey: navigatorKey,
           navigatorObservers: <NavigatorObserver>[
             Constants.singleCourseRouteObserver,
-            Constants.contentRouteObserver
+            Constants.contentRouteObserver,
+            CrashHandler.instance.routeObserver,
           ],
 
           scrollBehavior: ScrollConfiguration.of(context).copyWith(

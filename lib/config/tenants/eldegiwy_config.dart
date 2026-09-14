@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../api_config.dart';
 import '../branding_config.dart';
 import '../app_config.dart';
 
 class EldegiwyConfig extends AppConfig {
   @override
-  ApiConfig get api => const ApiConfig(
-        baseUrl: 'https://eldegiwy.elda7e7a.com/api/development/',
-        apiKey: '123456789', // Retaining the old key until removed globally
+  ApiConfig get api => ApiConfig(
+        baseUrl: dotenv.env['BASE_URL'] ?? 'https://eldegiwy.elda7e7a.com/api/development/',
+        apiKey: dotenv.env['API_KEY'] ?? '123456789',
       );
 
   @override
@@ -20,4 +21,7 @@ class EldegiwyConfig extends AppConfig {
         secondaryColor: Color(0xFF000000),
         accentColor: Color(0xFF0B6EF0),
       );
+
+  @override
+  bool get enableDeveloperCrashScreen => true; // Set to true for internal testing
 }
