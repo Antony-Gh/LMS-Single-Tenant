@@ -132,4 +132,45 @@ class CommentsService {
       return false;
     }
   }
+
+  static Future<List<Comments>> getInstructorComments() async {
+    List<Comments> data = [];
+    try {
+      String url = '${Constants.baseUrl}instructor/comments';
+      Response res = await httpGetWithToken(url);
+      var jsonResponse = jsonDecode(res.body);
+
+      if (jsonResponse['success'] == true) {
+        if (jsonResponse['data'] != null) {
+          jsonResponse['data'].forEach((json) {
+            data.add(Comments.fromJson(json));
+          });
+        }
+        return data;
+      } else {
+        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        return data;
+      }
+    } catch (e) {
+      return data;
+    }
+  }
+
+  static Future<bool> replyInstructorComment(int commentId, String reply) async {
+    try {
+      String url = '${Constants.baseUrl}instructor/comments/$commentId/reply';
+      Response res = await httpPostWithToken(url, {"reply": reply});
+      var jsonResponse = jsonDecode(res.body);
+
+      if (jsonResponse['success'] == true) {
+        ErrorHandler().showError(ErrorEnum.success, jsonResponse, readMessage: true);
+        return true;
+      } else {
+        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
 }

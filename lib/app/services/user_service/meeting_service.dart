@@ -118,4 +118,38 @@ class MeetingService {
       return false;
     }
   }
+
+  static Future<MeetingModel?> getInstructorMeetings() async {
+    try {
+      String url = '${Constants.baseUrl}instructor/meetings';
+      Response res = await httpGetWithToken(url);
+      var jsonResponse = jsonDecode(res.body);
+
+      if (jsonResponse['success'] == true) {
+        return MeetingModel.fromJson(jsonResponse['data']);
+      } else {
+        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static Future<MeetingModel?> getInstructorMeetingRequests() async {
+    try {
+      String url = '${Constants.baseUrl}instructor/meetings/requests';
+      Response res = await httpGetWithToken(url);
+      var jsonResponse = jsonDecode(res.body);
+
+      if (jsonResponse['success'] == true) {
+        return MeetingModel.fromJson(jsonResponse['data']);
+      } else {
+        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
 }

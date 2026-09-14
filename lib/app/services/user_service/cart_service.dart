@@ -255,4 +255,38 @@ class CartService {
       return null;
     }
   }
+
+  static Future<dynamic> verifyPaymentGet(String gateway) async {
+    try {
+      String url = '${Constants.baseUrl}panel/payments/verify/$gateway';
+      Response res = await httpGetWithToken(url, isRedirectingStatusCode: false);
+      var jsonResponse = jsonDecode(res.body);
+
+      if (jsonResponse['success'] == true) {
+        return jsonResponse['data'];
+      } else {
+        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static Future<dynamic> verifyPaymentPost(String gateway, Map<String, dynamic> body) async {
+    try {
+      String url = '${Constants.baseUrl}panel/payments/verify/$gateway';
+      Response res = await httpPostWithToken(url, body, isRedirectingStatusCode: false);
+      var jsonResponse = jsonDecode(res.body);
+
+      if (jsonResponse['success'] == true) {
+        return jsonResponse['data'];
+      } else {
+        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
 }
