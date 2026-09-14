@@ -194,6 +194,24 @@ class UserService {
     }
   }
 
+  Future<bool> confirmDeleteAccount() async {
+    try {
+      String url = '${Constants.baseUrl}panel/delete-account';
+      Response res = await httpPostWithToken(url, {});
+      var jsonResponse = jsonDecode(res.body);
+
+      if (jsonResponse['success']) {
+        ErrorHandler().showError(ErrorEnum.success, jsonResponse, readMessage: true);
+        return true;
+      } else {
+        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future<bool> contentDeleteRequest(Map<String, dynamic> body) async {
     try {
       String url = '${Constants.baseUrl}panel/content-delete-request';
