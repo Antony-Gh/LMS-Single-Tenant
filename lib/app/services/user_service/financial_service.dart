@@ -232,4 +232,27 @@ class FinancialService {
       return false;
     }
   }
+
+  static Future<List<dynamic>> getOfflinePurchases() async {
+    List<dynamic> data = [];
+    try {
+      String url = '${Constants.baseUrl}panel/offline';
+      Response res = await httpGetWithToken(url);
+      var jsonResponse = jsonDecode(res.body);
+
+      if (jsonResponse['success'] == true) {
+        if (jsonResponse['data'] is List) {
+          data = jsonResponse['data'];
+        } else if (jsonResponse['data'] != null && jsonResponse['data']['offline_purchases'] != null) {
+          data = jsonResponse['data']['offline_purchases'];
+        }
+        return data;
+      } else {
+        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        return data;
+      }
+    } catch (e) {
+      return data;
+    }
+  }
 }

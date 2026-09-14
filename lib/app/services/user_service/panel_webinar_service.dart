@@ -63,4 +63,89 @@ class PanelWebinarService {
       return null;
     }
   }
+
+  static Future<dynamic> getFile(int fileId) async {
+    try {
+      String url = '${Constants.baseUrl}panel/files/$fileId';
+      Response res = await httpGetWithToken(url);
+      var jsonResponse = jsonDecode(res.body);
+
+      if (jsonResponse['success'] == true) {
+        return jsonResponse['data'];
+      } else {
+        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static Future<dynamic> getSession(int sessionId) async {
+    try {
+      String url = '${Constants.baseUrl}panel/sessions/$sessionId';
+      Response res = await httpGetWithToken(url);
+      var jsonResponse = jsonDecode(res.body);
+
+      if (jsonResponse['success'] == true) {
+        return jsonResponse['data'];
+      } else {
+        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static Future<dynamic> getTextLesson(int lessonId) async {
+    try {
+      String url = '${Constants.baseUrl}panel/text-lessons/$lessonId';
+      Response res = await httpGetWithToken(url);
+      var jsonResponse = jsonDecode(res.body);
+
+      if (jsonResponse['success'] == true) {
+        return jsonResponse['data'];
+      } else {
+        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static Future<dynamic> getTextLessonNavigation(int lessonId) async {
+    try {
+      String url = '${Constants.baseUrl}panel/text-lessons/$lessonId/navigation';
+      Response res = await httpGetWithToken(url);
+      var jsonResponse = jsonDecode(res.body);
+
+      if (jsonResponse['success'] == true) {
+        return jsonResponse['data'];
+      } else {
+        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static Future<dynamic> joinAgora(int sessionId) async {
+    try {
+      String url = '${Constants.baseUrl}panel/webinars/session/agora/$sessionId';
+      Response res = await httpGetWithToken(url);
+      var jsonResponse = jsonDecode(res.body);
+
+      if (jsonResponse['success'] == true) {
+        return jsonResponse['data'];
+      } else {
+        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
 }

@@ -344,4 +344,21 @@ class QuizService {
       return false;
     }
   }
+
+  static Future<QuizModel?> getQuiz(int quizId) async {
+    try {
+      String url = '${Constants.baseUrl}panel/quizzes/$quizId';
+      Response res = await httpGetWithToken(url);
+      var jsonResponse = jsonDecode(res.body);
+
+      if (jsonResponse['success'] == true) {
+        return QuizModel.fromJson(jsonResponse['data']);
+      } else {
+        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
 }

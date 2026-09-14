@@ -194,6 +194,24 @@ class UserService {
     }
   }
 
+  Future<bool> contentDeleteRequest(Map<String, dynamic> body) async {
+    try {
+      String url = '${Constants.baseUrl}panel/content-delete-request';
+      Response res = await httpPostWithToken(url, body);
+      var jsonResponse = jsonDecode(res.body);
+
+      if (jsonResponse['success'] == true) {
+        ErrorHandler().showError(ErrorEnum.success, jsonResponse, readMessage: true);
+        return true;
+      } else {
+        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future<
       (
         List<CourseModel> myClasses,

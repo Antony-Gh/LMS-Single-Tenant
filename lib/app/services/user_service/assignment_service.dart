@@ -174,4 +174,21 @@ class AssignmentService {
       return false;
     }
   }
+
+  static Future<AssignmentModel?> getAssignment(int assignmentId) async {
+    try {
+      String url = '${Constants.baseUrl}panel/assignments/$assignmentId';
+      Response res = await httpGetWithToken(url);
+      var jsonResponse = jsonDecode(res.body);
+
+      if (jsonResponse['success'] == true) {
+        return AssignmentModel.fromJson(jsonResponse['data']);
+      } else {
+        ErrorHandler().showError(ErrorEnum.error, jsonResponse);
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
 }
