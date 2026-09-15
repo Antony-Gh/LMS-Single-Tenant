@@ -57,6 +57,7 @@ import 'app/pages/main_page/home_page/single_course_page/forum_page/search_forum
 import 'app/pages/main_page/home_page/single_course_page/learning_page.dart';
 import 'app/pages/main_page/home_page/single_course_page/single_content_page/single_content_page.dart';
 import 'app/pages/main_page/home_page/single_course_page/single_course_page.dart';
+import 'app/pages/main_page/home_page/store_page/store_page.dart';
 import 'app/pages/main_page/home_page/support_message_page/conversation_page.dart';
 import 'app/pages/main_page/home_page/support_message_page/support_message_page.dart';
 import 'app/pages/main_page/main_page.dart';
@@ -72,6 +73,10 @@ import 'app/providers/filter_course_provider.dart';
 import 'app/providers/page_provider.dart';
 import 'app/providers/providers_provider.dart';
 import 'app/providers/user_provider.dart';
+import 'app/providers/store_provider.dart';
+import 'app/providers/blog_provider.dart';
+import 'app/providers/instructor_provider.dart';
+import 'app/providers/webinar_provider.dart';
 import 'common/common.dart';
 import 'locator.dart';
 import 'package:provider/provider.dart';
@@ -171,6 +176,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => locator<DrawerProvider>()),
         ChangeNotifierProvider(create: (context) => locator<HomeProvider>()),
         ChangeNotifierProvider(create: (context) => locator<ThemeProvider>()),
+        ChangeNotifierProvider(create: (context) => locator<StoreProvider>()),
+        ChangeNotifierProvider(create: (context) => locator<BlogProvider>()),
+        ChangeNotifierProvider(create: (context) => locator<InstructorProvider>()),
+        ChangeNotifierProvider(create: (context) => locator<WebinarProvider>()),
       ],
       child: Consumer<ThemeProvider>(builder: (context, provider, _) {
         return MaterialApp(
@@ -270,6 +279,7 @@ class MyApp extends StatelessWidget {
                 const OfflineSingleCoursePage(),
             OfflineSingleContentPage.pageName: (context) =>
                 const OfflineSingleContentPage(),
+            StorePage.pageName: (context) => const StorePage(),
           },
         );
       }),

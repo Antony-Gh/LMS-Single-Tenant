@@ -18,6 +18,10 @@ import 'app/providers/filter_course_provider.dart';
 import 'app/providers/page_provider.dart';
 import 'app/providers/providers_provider.dart';
 import 'app/providers/user_provider.dart';
+import 'app/providers/store_provider.dart';
+import 'app/providers/blog_provider.dart';
+import 'app/providers/instructor_provider.dart';
+import 'app/providers/webinar_provider.dart';
 import 'common/utils/currency_utils.dart';
 
 GetIt locator = GetIt.instance;
@@ -47,4 +51,8 @@ locatorSetup(AppConfig config) async {
   locator.registerSingleton<DrawerProvider>(DrawerProvider());
   locator.registerSingleton<HomeProvider>(HomeProvider());
   locator.registerSingleton<ThemeProvider>(ThemeProvider());
+  locator.registerSingleton<StoreProvider>(StoreProvider());
+  locator.registerSingleton<BlogProvider>(BlogProvider());
+  locator.registerSingleton<InstructorProvider>(InstructorProvider());
+  locator.registerSingleton<WebinarProvider>(WebinarProvider());
 }
