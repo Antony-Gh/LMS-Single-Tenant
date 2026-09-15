@@ -460,10 +460,11 @@ class _SingleCoursePageState extends State<SingleCoursePage>
                                                           MainAxisAlignment
                                                               .spaceBetween,
                                                       children: [
-                                                        userProfile(
-                                                            courseData!
-                                                                .teacher!,
-                                                            showRate: true),
+                                                        if (courseData!.teacher != null)
+                                                          userProfile(
+                                                              courseData!
+                                                                  .teacher!,
+                                                              showRate: true),
                                                         closeButton(
                                                             AppAssets
                                                                 .menuCircleSvg,

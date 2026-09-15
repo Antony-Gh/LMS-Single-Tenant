@@ -148,15 +148,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 // body
                 Expanded(child:
                     Consumer<HomeProvider>(builder: (context, homeProvider, _) {
-                  return CustomScrollView(
-                    controller: scrollController,
-                    physics: const BouncingScrollPhysics(),
-                    slivers: [
+                  return RefreshIndicator(
+                    onRefresh: () async {
+                      await homeProvider.getData();
+                    },
+                    child: CustomScrollView(
+                      controller: scrollController,
+                      physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+                      slivers: [
                       SliverToBoxAdapter(
                         child: Column(
                           children: [
                             // Featured Classes
-                            Column(
+                            if (homeProvider.featuredListData.isNotEmpty || homeProvider.isLoadingFeaturedListData)
+                              Column(
                               children: [
                                 HomeWidget.titleAndMore(appText.featuredClasses,
                                     isViewAll: false),
@@ -226,7 +231,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             ),
 
                             // Newest Classes
-                            Column(
+                            if (homeProvider.newsetListData.isNotEmpty || homeProvider.isLoadingNewsetListData)
+                              Column(
                               children: [
                                 HomeWidget.titleAndMore(appText.newestClasses,
                                     onTapViewAll: () {
@@ -262,7 +268,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             ),
 
                             // Bundle
-                            Column(
+                            if (homeProvider.bundleData.isNotEmpty || homeProvider.isLoadingBundleData)
+                              Column(
                               children: [
                                 HomeWidget.titleAndMore(appText.latestBundles,
                                     onTapViewAll: () {
@@ -389,7 +396,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             space(10),
 
                             // Best Selling
-                            Column(
+                            if (homeProvider.bestSellingListData.isNotEmpty || homeProvider.isLoadingBestSellingListData)
+                              Column(
                               children: [
                                 HomeWidget.titleAndMore(appText.bestSelling,
                                     onTapViewAll: () {
@@ -466,7 +474,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             },
 
                             // Free Classes
-                            Column(
+                            if (homeProvider.freeListData.isNotEmpty || homeProvider.isLoadingFreeListData)
+                              Column(
                               children: [
                                 HomeWidget.titleAndMore(appText.freeClasses,
                                     onTapViewAll: () {
@@ -503,6 +512,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         ),
                       )
                     ],
+                  ),
                   );
                 }))
               ],
