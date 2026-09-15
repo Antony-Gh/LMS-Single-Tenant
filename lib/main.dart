@@ -60,6 +60,8 @@ import 'app/pages/main_page/home_page/single_course_page/single_course_page.dart
 import 'app/pages/main_page/home_page/store_page/store_page.dart';
 import 'app/pages/main_page/home_page/store_page/product_details_page.dart';
 import 'app/pages/main_page/home_page/panel_blogs_page/panel_blogs_page.dart';
+import 'app/pages/main_page/home_page/instructor_dashboard_page/instructor_dashboard_page.dart';
+import 'app/pages/main_page/home_page/webinar_management_page/webinar_management_page.dart';
 import 'app/pages/main_page/home_page/support_message_page/conversation_page.dart';
 import 'app/pages/main_page/home_page/support_message_page/support_message_page.dart';
 import 'app/pages/main_page/main_page.dart';
@@ -286,6 +288,8 @@ class MyApp extends StatelessWidget {
             // without using onGenerateRoute, or we can just pass it later. We'll comment it out for now.
             // ProductDetailsPage.pageName: (context) => const ProductDetailsPage(product: {}),
             PanelBlogsPage.pageName: (context) => const PanelBlogsPage(),
+            InstructorDashboardPage.pageName: (context) => const InstructorDashboardPage(),
+            WebinarManagementPage.pageName: (context) => const WebinarManagementPage(),
           },
         );
       }),
