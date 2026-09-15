@@ -92,7 +92,7 @@ class PanelBlogService {
   static Future<bool> deleteBlog(int blogId) async {
     try {
       String url = '${Constants.baseUrl}panel/blogs/$blogId';
-      Response res = await httpDeleteWithToken(url); // Assuming httpDeleteWithToken exists
+      Response res = await httpDeleteWithToken(url, {}); // Assuming httpDeleteWithToken exists
       var jsonResponse = jsonDecode(res.body);
 
       if (jsonResponse['success'] == true) {
@@ -188,7 +188,7 @@ class PanelBlogService {
   static Future<bool> deleteBlogComment(int commentId) async {
     try {
       String url = '${Constants.baseUrl}panel/blogs/comments/$commentId';
-      Response res = await httpDeleteWithToken(url);
+      Response res = await httpDeleteWithToken(url, {});
       var jsonResponse = jsonDecode(res.body);
 
       if (jsonResponse['success'] == true) {

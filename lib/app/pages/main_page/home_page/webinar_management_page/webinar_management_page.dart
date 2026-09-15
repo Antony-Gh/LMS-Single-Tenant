@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:esoi/app/providers/webinar_provider.dart';
 import 'package:esoi/app/services/user_service/panel_webinar_service.dart';
 import 'package:esoi/common/components.dart';
+import 'package:esoi/common/common.dart';
 import 'package:esoi/config/styles.dart';
 import 'package:esoi/locator.dart';
 

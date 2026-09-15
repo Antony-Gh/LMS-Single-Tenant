@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:esoi/app/providers/blog_provider.dart';
 import 'package:esoi/app/services/user_service/panel_blog_service.dart';
 import 'package:esoi/common/components.dart';
+import 'package:esoi/common/common.dart';
 import 'package:esoi/config/styles.dart';
 import 'package:esoi/locator.dart';
 
@@ -65,7 +66,7 @@ class _PanelBlogsPageState extends State<PanelBlogsPage> {
                         margin: const EdgeInsets.only(bottom: 12),
                         child: ListTile(
                           title: Text(blog.title ?? 'Blog Title', style: style14Bold()),
-                          subtitle: Text(blog.status ?? 'Status', style: style12Regular()),
+                          subtitle: Text(blog.category ?? 'Uncategorized', style: style12Regular()),
                           trailing: const Icon(Icons.edit, size: 20),
                           onTap: () {
                             // Navigate to edit blog
