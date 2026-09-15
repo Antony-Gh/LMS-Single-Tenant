@@ -66,8 +66,8 @@ class _InstructorDashboardPageState extends State<InstructorDashboardPage> {
                             return Card(
                               margin: const EdgeInsets.only(bottom: 12),
                               child: ListTile(
-                                title: Text(bundle['title'] ?? 'Bundle', style: style14Bold()),
-                                subtitle: Text(bundle['status'] ?? 'Draft', style: style12Regular()),
+                                title: Text(bundle.title ?? 'Bundle', style: style14Bold()),
+                                subtitle: Text(bundle.status ?? 'Draft', style: style12Regular()),
                                 trailing: const Icon(Icons.edit, size: 20),
                                 onTap: () {
                                   // Edit bundle

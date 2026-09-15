@@ -64,8 +64,8 @@ class _PanelBlogsPageState extends State<PanelBlogsPage> {
                       return Card(
                         margin: const EdgeInsets.only(bottom: 12),
                         child: ListTile(
-                          title: Text(blog['title'] ?? 'Blog Title', style: style14Bold()),
-                          subtitle: Text(blog['status'] ?? 'Status', style: style12Regular()),
+                          title: Text(blog.title ?? 'Blog Title', style: style14Bold()),
+                          subtitle: Text(blog.status ?? 'Status', style: style12Regular()),
                           trailing: const Icon(Icons.edit, size: 20),
                           onTap: () {
                             // Navigate to edit blog

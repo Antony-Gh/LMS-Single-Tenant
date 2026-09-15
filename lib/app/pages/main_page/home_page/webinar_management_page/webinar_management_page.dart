@@ -74,8 +74,8 @@ class _WebinarManagementPageState extends State<WebinarManagementPage> {
                           return Card(
                             margin: const EdgeInsets.only(bottom: 12),
                             child: ListTile(
-                              title: Text(chapter['title'] ?? 'Chapter', style: style14Bold()),
-                              subtitle: Text(chapter['status'] ?? 'Active', style: style12Regular()),
+                              title: Text(chapter.title ?? 'Chapter', style: style14Bold()),
+                              subtitle: Text(chapter.type ?? 'Active', style: style12Regular()),
                               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                               onTap: () {
                                 // View chapter details

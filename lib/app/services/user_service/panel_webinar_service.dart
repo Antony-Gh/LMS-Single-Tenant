@@ -5,6 +5,7 @@ import 'package:esoi/common/utils/constants.dart';
 import 'package:esoi/common/utils/error_handler.dart';
 import 'package:esoi/common/utils/http_handler.dart';
 import 'package:esoi/app/models/course_model.dart';
+import 'package:esoi/app/models/content_model.dart';
 
 class PanelWebinarService {
   static Future<CourseModel?> getWebinar(int courseId) async {
@@ -24,8 +25,8 @@ class PanelWebinarService {
     }
   }
 
-  static Future<List<dynamic>> getWebinarChapters(int courseId) async {
-    List<dynamic> data = [];
+  static Future<List<ContentModel>> getWebinarChapters(int courseId) async {
+    List<ContentModel> data = [];
     try {
       String url = '${Constants.baseUrl}panel/webinars/$courseId/chapters';
       Response res = await httpGetWithToken(url);
@@ -33,9 +34,9 @@ class PanelWebinarService {
 
       if (jsonResponse['success'] == true) {
         if (jsonResponse['data'] is List) {
-          data = jsonResponse['data'];
+          data = (jsonResponse['data'] as List).map((e) => ContentModel.fromJson(e)).toList();
         } else if (jsonResponse['data'] != null && jsonResponse['data']['chapters'] != null) {
-          data = jsonResponse['data']['chapters'];
+          data = (jsonResponse['data']['chapters'] as List).map((e) => ContentModel.fromJson(e)).toList();
         }
         return data;
       } else {

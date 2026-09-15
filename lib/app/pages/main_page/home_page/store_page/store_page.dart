@@ -64,9 +64,9 @@ class _StorePageState extends State<StorePage> {
                       return Card(
                         margin: const EdgeInsets.only(bottom: 12),
                         child: ListTile(
-                          title: Text(product['title'] ?? 'Product Title', style: style14Bold()),
-                          subtitle: Text(product['type'] ?? 'Product Type', style: style12Regular()),
-                          trailing: Text(product['price'] != null ? '\$${product['price']}' : 'Free', style: style14Bold()),
+                          title: Text(product.title ?? 'Product Title', style: style14Bold()),
+                          subtitle: Text(product.type ?? 'Product Type', style: style12Regular()),
+                          trailing: Text(product.price != null ? '\$${product.price}' : 'Free', style: style14Bold()),
                           onTap: () {
                             // Navigate to product details
                           },

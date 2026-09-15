@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:esoi/app/models/content_model.dart';
 
 class WebinarProvider extends ChangeNotifier {
   List<dynamic> panelWebinars = [];
-  List<dynamic> panelWebinarChapters = [];
+  List<ContentModel> panelWebinarChapters = [];
   List<dynamic> personalNotes = [];
 
   void setPanelWebinars(List<dynamic> data) {
@@ -10,7 +11,7 @@ class WebinarProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setPanelWebinarChapters(List<dynamic> data) {
+  void setPanelWebinarChapters(List<ContentModel> data) {
     panelWebinarChapters = data;
     notifyListeners();
   }

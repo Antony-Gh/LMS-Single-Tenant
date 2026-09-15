@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:esoi/app/models/bundle_model.dart';
 
 class InstructorProvider extends ChangeNotifier {
-  List<dynamic> bundles = [];
+  List<BundleModel> bundles = [];
   List<dynamic> meetings = [];
   List<dynamic> quizzes = [];
 
-  void setBundles(List<dynamic> data) {
+  void setBundles(List<BundleModel> data) {
     bundles = data;
     notifyListeners();
   }

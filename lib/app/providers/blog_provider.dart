@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:esoi/app/models/blog_model.dart';
 
 class BlogProvider extends ChangeNotifier {
-  List<dynamic> panelBlogs = [];
+  List<BlogModel> panelBlogs = [];
   List<dynamic> panelBlogComments = [];
 
-  void setPanelBlogs(List<dynamic> data) {
+  void setPanelBlogs(List<BlogModel> data) {
     panelBlogs = data;
     notifyListeners();
   }

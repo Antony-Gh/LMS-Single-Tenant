@@ -5,9 +5,11 @@ import 'package:esoi/common/utils/constants.dart';
 import 'package:esoi/common/utils/error_handler.dart';
 import 'package:esoi/common/utils/http_handler.dart';
 
+import 'package:esoi/app/models/bundle_model.dart';
+
 class InstructorBundleService {
-  static Future<List<dynamic>> getBundles() async {
-    List<dynamic> data = [];
+  static Future<List<BundleModel>> getBundles() async {
+    List<BundleModel> data = [];
     try {
       String url = '${Constants.baseUrl}instructor/bundles';
       Response res = await httpGetWithToken(url);
@@ -15,9 +17,9 @@ class InstructorBundleService {
 
       if (jsonResponse['success'] == true) {
         if (jsonResponse['data'] is List) {
-          data = jsonResponse['data'];
+          data = (jsonResponse['data'] as List).map((e) => BundleModel.fromJson(e)).toList();
         } else if (jsonResponse['data'] != null && jsonResponse['data']['bundles'] != null) {
-          data = jsonResponse['data']['bundles'];
+          data = (jsonResponse['data']['bundles'] as List).map((e) => BundleModel.fromJson(e)).toList();
         }
         return data;
       } else {
@@ -47,14 +49,14 @@ class InstructorBundleService {
     }
   }
 
-  static Future<dynamic> getBundle(int bundleId) async {
+  static Future<BundleModel?> getBundle(int bundleId) async {
     try {
       String url = '${Constants.baseUrl}instructor/bundles/$bundleId';
       Response res = await httpGetWithToken(url);
       var jsonResponse = jsonDecode(res.body);
 
       if (jsonResponse['success'] == true) {
-        return jsonResponse['data'];
+        return BundleModel.fromJson(jsonResponse['data']);
       } else {
         ErrorHandler().showError(ErrorEnum.error, jsonResponse);
         return null;

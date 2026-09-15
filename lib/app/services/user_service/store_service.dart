@@ -5,9 +5,12 @@ import 'package:esoi/common/utils/constants.dart';
 import 'package:esoi/common/utils/error_handler.dart';
 import 'package:esoi/common/utils/http_handler.dart';
 
+import 'package:esoi/app/models/store_product_model.dart';
+import 'package:esoi/app/models/sales_model.dart';
+
 class StoreService {
-  static Future<List<dynamic>> getProducts() async {
-    List<dynamic> data = [];
+  static Future<List<StoreProductModel>> getProducts() async {
+    List<StoreProductModel> data = [];
     try {
       String url = '${Constants.baseUrl}panel/store/products';
       Response res = await httpGetWithToken(url);
@@ -15,9 +18,9 @@ class StoreService {
 
       if (jsonResponse['success'] == true) {
         if (jsonResponse['data'] is List) {
-          data = jsonResponse['data'];
+          data = (jsonResponse['data'] as List).map((e) => StoreProductModel.fromJson(e)).toList();
         } else if (jsonResponse['data'] != null && jsonResponse['data']['products'] != null) {
-          data = jsonResponse['data']['products'];
+          data = (jsonResponse['data']['products'] as List).map((e) => StoreProductModel.fromJson(e)).toList();
         }
         return data;
       } else {
@@ -69,8 +72,8 @@ class StoreService {
     }
   }
 
-  static Future<List<dynamic>> getSales() async {
-    List<dynamic> data = [];
+  static Future<List<Sales>> getSales() async {
+    List<Sales> data = [];
     try {
       String url = '${Constants.baseUrl}panel/store/sales';
       Response res = await httpGetWithToken(url);
@@ -78,9 +81,9 @@ class StoreService {
 
       if (jsonResponse['success'] == true) {
          if (jsonResponse['data'] is List) {
-          data = jsonResponse['data'];
+          data = (jsonResponse['data'] as List).map((e) => Sales.fromJson(e)).toList();
         } else if (jsonResponse['data'] != null && jsonResponse['data']['sales'] != null) {
-          data = jsonResponse['data']['sales'];
+          data = (jsonResponse['data']['sales'] as List).map((e) => Sales.fromJson(e)).toList();
         }
         return data;
       } else {
@@ -115,8 +118,8 @@ class StoreService {
     }
   }
 
-  static Future<List<dynamic>> getPurchases() async {
-    List<dynamic> data = [];
+  static Future<List<Sales>> getPurchases() async {
+    List<Sales> data = [];
     try {
       String url = '${Constants.baseUrl}panel/store/purchases';
       Response res = await httpGetWithToken(url);
@@ -124,9 +127,9 @@ class StoreService {
 
       if (jsonResponse['success'] == true) {
          if (jsonResponse['data'] is List) {
-          data = jsonResponse['data'];
+          data = (jsonResponse['data'] as List).map((e) => Sales.fromJson(e)).toList();
         } else if (jsonResponse['data'] != null && jsonResponse['data']['purchases'] != null) {
-          data = jsonResponse['data']['purchases'];
+          data = (jsonResponse['data']['purchases'] as List).map((e) => Sales.fromJson(e)).toList();
         }
         return data;
       } else {

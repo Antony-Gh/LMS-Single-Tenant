@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:esoi/app/models/store_product_model.dart';
+import 'package:esoi/app/models/sales_model.dart';
 
 class StoreProvider extends ChangeNotifier {
-  List<dynamic> products = [];
-  List<dynamic> sales = [];
-  List<dynamic> purchases = [];
+  List<StoreProductModel> products = [];
+  List<Sales> sales = [];
+  List<Sales> purchases = [];
 
-  void setProducts(List<dynamic> data) {
+  void setProducts(List<StoreProductModel> data) {
     products = data;
     notifyListeners();
   }
 
-  void setSales(List<dynamic> data) {
+  void setSales(List<Sales> data) {
     sales = data;
     notifyListeners();
   }
 
-  void setPurchases(List<dynamic> data) {
+  void setPurchases(List<Sales> data) {
     purchases = data;
     notifyListeners();
   }
