@@ -146,13 +146,14 @@ void main() async {
     return CustomCrashScreen(errorDetails: errorDetails);
   };
 
-  runZonedGuarded(() {
-    runApp(const MyApp());
-  }, (error, stack) {
-    if (!kIsWeb) {
-      CrashHandler.instance.recordError(error, stack, reason: 'runZonedGuarded Error');
-    }
-  });
+  if (!kIsWeb) {
+    PlatformDispatcher.instance.onError = (error, stack) {
+      CrashHandler.instance.recordError(error, stack, reason: 'PlatformDispatcher Error');
+      return true;
+    };
+  }
+
+  runApp(const MyApp());
 
   await ScreenProtector.preventScreenshotOn();
   await ScreenProtector.protectDataLeakageOn();
